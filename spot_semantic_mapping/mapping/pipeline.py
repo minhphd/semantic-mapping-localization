@@ -887,7 +887,7 @@ def main(dataset_path, rotate, floor_only, cfg, ouput_dir=None, scene_graph_only
     object_names = []
     object_indices = []
     for object in tqdm(tracker.objects, desc="Captioning objects"):
-        if object.class_name in cfg.landmarks['classes']:
+        if object.class_name in cfg.landmarks['classes'] and captioner is not None:
             object.class_name = caption_obj(object, captioner, 5)
         if not object.oid:
             object.oid = tracker.objects.index(object)

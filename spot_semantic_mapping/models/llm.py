@@ -27,7 +27,11 @@ class GroqModel():
         }:
             raise ValueError(f"Unsupported vision model: {model}")
         self.model = model
-        self.client = Groq(api_key=config['API_KEYS']['groq_api'])
+        if 'groq_api' not in config['API_KEYS']:
+            self.client = None
+            print("Warning: Groq API key not found. GroqModel will not work.")
+        else:
+            self.client = Groq(api_key=config['API_KEYS']['groq_api'])
 
     def __call__(self, input, image=None):
         content = [{"type": "text", "text": input}]
