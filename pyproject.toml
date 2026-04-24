@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spot-semantic-mapping"
+version = "0.2.0"
+description = "3D semantic scene graph construction for Boston Dynamics Spot"
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["spot_semantic_mapping*"]
+
+[project.scripts]
+build-scene-graph = "spot_semantic_mapping.mapping.pipeline:cli"

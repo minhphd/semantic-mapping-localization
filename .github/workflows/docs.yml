@@ -1,0 +1,35 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "docs-requirements.txt"
+      - "spot_semantic_mapping/**/*.py"
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install docs dependencies
+        run: pip install -r docs-requirements.txt
+
+      # Install the package so mkdocstrings can import it for API docs
+      - name: Install package (no heavy deps)
+        run: pip install -e . --no-deps
+
+      - name: Build and deploy to GitHub Pages
+        run: mkdocs gh-deploy --force

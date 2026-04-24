@@ -1,0 +1,149 @@
+site_name: Spot Semantic Mapping
+site_description: 3D semantic scene graph construction for Boston Dynamics Spot robots and iPhone RGB-D sequences
+site_author: Minh Pham-Dinh
+site_url: https://mhpham26.github.io/deployment_sem_mapping/
+
+repo_name: deployment_sem_mapping
+repo_url: https://github.com/mhpham26/deployment_sem_mapping
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Inter
+    code: JetBrains Mono
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            members_order: source
+            show_signature_annotations: true
+            separate_signature: true
+            merge_init_into_class: true
+            allow_inspection: true
+
+validation:
+  nav:
+    omitted_files: warn
+    not_found: warn
+    absolute_links: warn
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.arithmatex:
+      generic: true
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/mhpham26/deployment_sem_mapping
+  version:
+    provider: mike
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - https://unpkg.com/mermaid@11/dist/mermaid.min.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+  - stylesheets/mermaid-init.js
+
+nav:
+  - Home: index.md
+  - Background Knowledge:
+    - Overview: background/index.md
+    - Linear Algebra in Python: background/linear_algebra.md
+    - Intro to Machine Learning: background/machine_learning.md
+    - Intro to Computer Vision: background/computer_vision.md
+    - Intro to NLP: background/nlp.md
+    - Robot Hardware: background/robot_hardware.md
+    - Open Problems in Robotics: background/open_problems.md
+  - Getting Started:
+    - Overview: getting_started/index.md
+    - Installation: getting_started/installation.md
+    - Quick Start: getting_started/quickstart.md
+    - Configuration: getting_started/configuration.md
+    - Prerequisites:
+      - Overview: prerequisites/index.md
+      - Docker: prerequisites/docker.md
+      - Conda: prerequisites/conda.md
+      - PyTorch & CUDA: prerequisites/pytorch.md
+      - Open3D: prerequisites/open3d.md
+  - Concepts:
+    - Architecture: concepts/architecture.md
+    - Scene Graphs: concepts/scene_graph.md
+    - Object Tracking: concepts/tracking.md
+    - Visual Place Recognition: concepts/vpr.md
+  - Tutorials:
+    - Overview: tutorials/index.md
+    - 1 · Data Loading: tutorials/data_loading.md
+    - 2 · Detection & Segmentation: tutorials/detection_segmentation.md
+    - 3 · Scene Graph Construction: tutorials/scene_graph.md
+    - 4 · Localization (VPR): tutorials/localization.md
+  - API Reference:
+    - Overview: api/index.md
+    - Mapping: api/mapping.md
+    - Localization: api/localization.md
+    - Models: api/models.md
+    - Core: api/core.md
+    - Spot: api/spot.md
+    - Config: api/config.md
