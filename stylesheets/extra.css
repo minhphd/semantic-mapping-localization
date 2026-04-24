@@ -1,0 +1,5 @@
+/* Mermaid diagrams — centre and add subtle border */
+.mermaid {
+  text-align: center;
+  margin: 1rem 0;
+}
