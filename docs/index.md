@@ -6,7 +6,7 @@ hide:
 
 # Spot Semantic Mapping
 
-Build persistent 3D scene graphs from robot RGB-D streams — open-world detection, multi-view segmentation, VLM captioning, and visual place recognition in one pipeline.
+Build persistent 3D scene graphs from RGB-D images — open-world detection, multi-view segmentation, VLM captioning, and visual place recognition in one pipeline.
 
 **Supported sensors:** Boston Dynamics Spot (live + offline) · iPhone LiDAR via StrayScanner (offline)
 

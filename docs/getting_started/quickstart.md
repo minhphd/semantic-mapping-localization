@@ -21,17 +21,42 @@ The pipeline expects a dataset directory in one of two formats:
     └── odometry.csv     # Camera poses (tx, ty, tz, qx, qy, qz, qw)
     ```
 
+    !!! tip "Transferring from iPhone"
+        Upload the exported dataset to the lab drive and copy it to your workstation before running the pipeline.
+
 === "Spot Robot"
 
-    Collect a dataset using the capture utilities:
+    **Step 1a — Capture**
 
-    ```python
-    from spot_semantic_mapping.spot.collection.capture import capture_frames
+    Make sure your computer is connected to iRobot (with Spot also connected), then run the capture script. It will prompt for Spot's IP, username, and password and begin saving frames at a fixed interval. Walk Spot around the scene, then press `Ctrl+C` to stop.
 
-    capture_frames(output_dir="data/spot/my_scene", interval_s=0.5)
+    ```bash
+    python -m spot_semantic_mapping.spot.collection.capture \
+        --hostname <SPOT_IP> \
+        --username <USERNAME> \
+        --password <PASSWORD> \
+        --outdir data/spot/my_scene \
+        --interval 2.0
     ```
 
     This produces a directory with per-timestamp subdirectories, one per camera.
+
+    !!! note
+        `--hostname` is Spot's IP address on the iRobot network (e.g. `192.168.80.3`). `--interval` controls the capture cadence in seconds.
+
+    **Step 1b — Convert to StrayScanner format**
+
+    The rest of the pipeline expects StrayScanner layout. Run the conversion before moving on:
+
+    ```python
+    from spot_semantic_mapping.spot.dataset import SpotDataset
+
+    ds = SpotDataset("data/spot/my_scene")
+    ds.generate_strayscanner_dir(camera="hand_color")
+    # Output is written back into data/spot/my_scene/ in StrayScanner layout.
+    ```
+
+    You can now use `data/spot/my_scene` as the `dataset_path` in Step 2.
 
 ---
 
@@ -44,6 +69,9 @@ The pipeline expects a dataset directory in one of two formats:
         --output_dir outputs/my_scene \
         --rotate -90        # Rotate depth frames (iPhone handheld recordings often need this)
     ```
+
+    !!! tip "Do I need `--rotate`?"
+        Only add `--rotate -90` if you recorded vertically on iPhone. Open a few frames first to check orientation — the goal is to pass right-side-up images to the detection model. Spot recordings do not need rotation.
 
 === "Python"
 
@@ -73,7 +101,7 @@ This will:
 7. Write `outputs/my_scene/scene_graph.json` and `semantics.ply`
 
 !!! tip "Expected runtime"
-    On an RTX 3090, a 500-frame iPhone sequence takes ~8–12 minutes end-to-end (detection is the bottleneck).
+    On an RTX 3090, a 5000-frame iPhone sequence takes ~8–12 minutes end-to-end. It is relatively fast
 
 ---
 
@@ -103,9 +131,15 @@ pcd = o3d.io.read_point_cloud("outputs/my_scene/semantics.ply")
 o3d.visualization.draw_geometries([pcd])
 ```
 
+!!! note "Lab computer with Docker"
+    If port-tunnelling is enabled in Docker, the `o3d.visualization.draw_geometries()` call above will open an interactive 3D panel directly on your screen.
+
 ---
 
 ## Step 4 — Run Localization
+
+!!! note "Simplified example"
+    The code below shows the minimal Python API. For full Spot-in-the-loop localization — including live pose streaming and scene graph publishing over ROS2 — see `spot_semantic_mapping/spot/telemetry.py` and the [ROS2 & Spot Telemetry](../background/ros2.md) background page.
 
 ```python
 from spot_semantic_mapping.localization.localizer import localize, prepare_embeddings

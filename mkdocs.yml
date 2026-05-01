@@ -113,6 +113,7 @@ nav:
     - Intro to Computer Vision: background/computer_vision.md
     - Intro to NLP: background/nlp.md
     - Robot Hardware: background/robot_hardware.md
+    - ROS2 & Spot Telemetry: background/ros2.md
     - Open Problems in Robotics: background/open_problems.md
   - Getting Started:
     - Overview: getting_started/index.md
