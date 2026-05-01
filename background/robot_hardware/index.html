@@ -18,7 +18,7 @@
         <link rel="prev" href="../nlp/">
       
       
-        <link rel="next" href="../open_problems/">
+        <link rel="next" href="../ros2/">
       
       
         
@@ -705,10 +705,32 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#how-depth-sensors-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Depth Sensors Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#intrinsic-matrix-k" class="md-nav__link">
     <span class="md-ellipsis">
       
         Intrinsic Matrix K
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extrinsic-calibration-t_bc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extrinsic Calibration: T_BC
       
     </span>
   </a>
@@ -721,15 +743,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#poses-and-positions" class="md-nav__link">
+  <a href="#poses-and-orientations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Poses and Positions
+        Poses and Orientations
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Poses and Positions">
+    <nav class="md-nav" aria-label="Poses and Orientations">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -774,6 +796,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2 & Spot Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1850,10 +1900,32 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#how-depth-sensors-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Depth Sensors Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#intrinsic-matrix-k" class="md-nav__link">
     <span class="md-ellipsis">
       
         Intrinsic Matrix K
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extrinsic-calibration-t_bc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extrinsic Calibration: T_BC
       
     </span>
   </a>
@@ -1866,15 +1938,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#poses-and-positions" class="md-nav__link">
+  <a href="#poses-and-orientations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Poses and Positions
+        Poses and Orientations
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Poses and Positions">
+    <nav class="md-nav" aria-label="Poses and Orientations">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1936,75 +2008,82 @@
 
 
 <h1 id="robot-hardware">Robot Hardware<a class="headerlink" href="#robot-hardware" title="Permanent link">&para;</a></h1>
-<p>Before writing code that processes sensor data, it helps to know where that data comes from. This page covers the physical sensors this repo works with and how their outputs are represented in code.</p>
+<p>A robot is, at its core, a device that replaces a human doing something tedious, dangerous, or precise enough to require consistency. Spot was designed by Boston Dynamics to walk into places that wheeled robots cannot reach — rubble, stairs, uneven terrain — and to carry sensors into those places so something useful can happen. Before writing code that processes sensor data, it helps to know what that data actually is, how it was measured, and what assumptions are baked in. All of those assumptions will eventually bite you if you don't know they exist.</p>
 <hr />
 <h2 id="sensors">Sensors<a class="headerlink" href="#sensors" title="Permanent link">&para;</a></h2>
-<p>A <strong>sensor</strong> is a device that measures something about the physical world and converts it to a digital signal. Robots carry multiple sensors because no single sensor captures everything.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Boston Dynamics Spot sensor suite:
+<p>A <strong>sensor</strong> is a device that measures something about the physical world and converts it to a digital signal. Robots carry multiple sensors because no single sensor captures everything: a camera sees color and texture but cannot measure distance; a LiDAR measures distance but has no color; an IMU measures motion but goes blind to the outside world entirely.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Boston Dynamics Spot sensor suite (front view):
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  ┌─────────────────────────────┐
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  │        Top camera           │  ← fisheye RGB
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  │                             │
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  │  Front-left    Front-right  │  ← stereo depth cameras
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  │     depth          depth    │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  │                             │
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  │   Left side    Right side   │  ← depth cameras
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  │                             │
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  │         IMU                 │  ← accelerometer + gyroscope
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  └─────────────────────────────┘
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>         ┌─────────────────────────────────────┐
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>         │                                     │
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>         │   front-left     front-right        │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>         │   depth cam       depth cam         │   ← stereo + structured light
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>         │                                     │
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>         │         fisheye camera              │   ← wide-angle RGB
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>         │             (top)                   │
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>         │                                     │
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>         │       [HAND]  ← wrist camera:       │
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>         │          hand_color_image           │   ← high-res RGB + depth
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>         │          hand_depth                 │
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>         └─────────────────────────────────────┘
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>  Side cameras: left_fisheye, right_fisheye, back_fisheye
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>  IMU: 3-axis accelerometer + 3-axis gyroscope (bolted to chassis)
 </span></code></pre></div>
 <table>
 <thead>
 <tr>
 <th>Sensor</th>
 <th>Measures</th>
-<th>Output</th>
+<th>Output format</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>RGB camera</td>
 <td>Color and texture</td>
-<td><code>(H, W, 3)</code> image</td>
+<td><code>(H, W, 3)</code> uint8 image</td>
 </tr>
 <tr>
 <td>Depth camera</td>
 <td>Distance per pixel</td>
-<td><code>(H, W)</code> depth map</td>
+<td><code>(H, W)</code> float32, millimetres</td>
 </tr>
 <tr>
 <td>IMU</td>
-<td>Acceleration + rotation rate</td>
-<td>6-D vector</td>
+<td>Linear acceleration + angular velocity</td>
+<td>6-D vector at ~200 Hz</td>
 </tr>
 <tr>
 <td>LiDAR</td>
-<td>3D distances via laser</td>
-<td>point cloud</td>
+<td>3D distances via laser pulses</td>
+<td>point cloud <code>(N, 3)</code></td>
 </tr>
 <tr>
-<td>Wheel encoders</td>
-<td>How far wheels have turned</td>
-<td>odometry</td>
+<td>Wheel/leg encoders</td>
+<td>Joint angles and velocities</td>
+<td>odometry estimates</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="depth-cameras">Depth Cameras<a class="headerlink" href="#depth-cameras" title="Permanent link">&para;</a></h2>
-<p>A <strong>depth camera</strong> captures a depth image — every pixel stores a distance value in meters instead of a color:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>RGB image (colors):        Depth image (distances):
+<p>A <strong>depth camera</strong> captures a depth image — every pixel stores a distance value instead of a color. Conceptually, it is like having a million tiny range-finders tiled across the field of view.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>RGB image (colors):        Depth image (distances in meters):
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  ┌──────────────┐           ┌──────────────┐
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  │ 120 080 060  │           │ 0.0  0.0 0.0 │
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  │ 110 075 055  │           │ 0.0  1.7 1.8 │  ← object at 1.7 m
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  │ 120 080 060  │           │ 0.0  0.0 0.0 │  ← sky/ceiling → 0 (invalid)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  │ 110 075 055  │           │ 0.0  1.7 1.8 │  ← wall at 1.7 m
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  │ 100 070 060  │           │ 0.0  1.7 1.8 │
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  └──────────────┘           └──────────────┘
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    (R, G, B per pixel)        (meters per pixel)
 </span></code></pre></div>
-<p><strong>How depth cameras work (structured light):</strong> project an infrared dot pattern onto the scene. A second IR camera sees the distorted pattern — the distortion encodes depth.</p>
-<p><strong>iPhone LiDAR:</strong> fires near-infrared laser pulses and measures the round-trip time. Distance = (time × speed of light) / 2. Accurate to ~1 cm out to 5 m.</p>
+<h3 id="how-depth-sensors-work">How Depth Sensors Work<a class="headerlink" href="#how-depth-sensors-work" title="Permanent link">&para;</a></h3>
+<p><strong>Structured light</strong> (Spot body cameras): Project a grid of invisible infrared dots onto the scene. A second IR camera observes the grid. Where the dots land depends on how far away the surface is — closer objects shift the dots by a larger amount. This shift is called <strong>disparity</strong>, and it maps directly to depth.</p>
+<p><strong>Time-of-flight / LiDAR</strong> (iPhone LiDAR): Fire short infrared laser pulses and measure the time until the reflected pulse returns. Distance = (time × speed of light) / 2. Accurate to ~1 cm out to 5 m. Does not require a textured surface. Confused by mirrors and retroreflectors.</p>
+<p><strong>Stereo</strong> (some setups): Two cameras separated by a known baseline. Match the same surface point in both images. The horizontal shift (disparity) gives depth via triangulation. No active illumination required — works outdoors in bright sunlight where IR sensors are confused.</p>
 <h3 id="intrinsic-matrix-k">Intrinsic Matrix K<a class="headerlink" href="#intrinsic-matrix-k" title="Permanent link">&para;</a></h3>
-<p>The <strong>intrinsic matrix</strong> describes the geometry of the lens — it tells you how a 3D point in front of the camera maps to a pixel on the image:</p>
+<p>The <strong>intrinsic matrix</strong> describes the lens geometry — it encodes how a 3D point in front of the camera projects onto a 2D pixel. Every time you convert a depth image to a 3D point cloud, you are using K.</p>
 <div class="arithmatex">\[
 K = \begin{bmatrix} f_x &amp; 0 &amp; c_x \\ 0 &amp; f_y &amp; c_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix}
 \]</div>
@@ -2018,99 +2097,134 @@ K = \begin{bmatrix} f_x &amp; 0 &amp; c_x \\ 0 &amp; f_y &amp; c_y \\ 0 &amp; 0 
 <tbody>
 <tr>
 <td><span class="arithmatex">\(f_x, f_y\)</span></td>
-<td>Focal length in pixels</td>
+<td>Focal length in pixels (image scale per unit of depth)</td>
 </tr>
 <tr>
 <td><span class="arithmatex">\(c_x, c_y\)</span></td>
-<td>Principal point — where the optical axis hits the sensor (usually image center)</td>
+<td>Principal point — where the optical axis pierces the sensor</td>
 </tr>
 </tbody>
 </table>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Projection (3D → pixel):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Projection (3D → pixel):          Back-projection (pixel + depth → 3D):
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  3D point P = [X, Y, Z]
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>       │
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>       ▼  divide by Z, apply K
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  pixel u = f_x * (X/Z) + c_x
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  pixel v = f_y * (Y/Z) + c_y
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  3D point [X, Y, Z]                pixel (u, v) + depth d
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>         │                                  │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>         ▼  divide by Z, apply K            ▼  apply K⁻¹, scale by d
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  u = f_x · (X/Z) + c_x           X = (u - c_x) · d / f_x
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  v = f_y · (Y/Z) + c_y           Y = (v - c_y) · d / f_y
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                                   Z = d
 </span></code></pre></div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Back-projection (pixel + depth → 3D):
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  pixel (u, v) + depth d
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>       │
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>       ▼  apply K⁻¹, multiply by d
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  X = (u - c_x) * d / f_x
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  Y = (v - c_y) * d / f_y
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  Z = d
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">depth_to_pointcloud</span><span class="p">(</span><span class="n">depth</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">K</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Back-project a depth image to a (N, 3) point cloud.&quot;&quot;&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">H</span><span class="p">,</span> <span class="n">W</span> <span class="o">=</span> <span class="n">depth</span><span class="o">.</span><span class="n">shape</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="n">fx</span><span class="p">,</span> <span class="n">fy</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">K</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">cx</span><span class="p">,</span> <span class="n">cy</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">K</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">W</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">H</span><span class="p">))</span>   <span class="c1"># pixel grids, shape (H, W)</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">valid</span> <span class="o">=</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">0</span>                                  <span class="c1"># mask out missing depth</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">X</span> <span class="o">=</span> <span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">-</span> <span class="n">cx</span><span class="p">)</span> <span class="o">*</span> <span class="n">depth</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">/</span> <span class="n">fx</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">Y</span> <span class="o">=</span> <span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">-</span> <span class="n">cy</span><span class="p">)</span> <span class="o">*</span> <span class="n">depth</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">/</span> <span class="n">fy</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    <span class="n">Z</span> <span class="o">=</span> <span class="n">depth</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>    <span class="c1"># (N, 3)</span>
 </span></code></pre></div>
-<p>This back-projection is how every depth frame becomes a point cloud in <code>core/geometry.py</code>.</p>
-<hr />
-<h2 id="poses-and-positions">Poses and Positions<a class="headerlink" href="#poses-and-positions" title="Permanent link">&para;</a></h2>
-<p>A <strong>position</strong> is where the robot (or camera) is in space — a 3D point <span class="arithmatex">\([x, y, z]\)</span>.</p>
-<p>A <strong>pose</strong> is position <strong>plus</strong> orientation — where is it and which way is it facing?</p>
-<p>In code, a pose is a <code>(4, 4)</code> matrix (see <a href="../linear_algebra/">Linear Algebra in Python</a>):</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Pose matrix layout:
+<p>This is exactly what <code>core/geometry.py</code> does for every depth frame.</p>
+<h3 id="extrinsic-calibration-t_bc">Extrinsic Calibration: T_BC<a class="headerlink" href="#extrinsic-calibration-t_bc" title="Permanent link">&para;</a></h3>
+<p>The intrinsic matrix tells you where in the <em>camera frame</em> a 3D point lives. But the camera is mounted on the robot body at some offset and angle. The <strong>extrinsic calibration</strong> <span class="arithmatex">\(T_{BC}\)</span> (Body → Camera transform) is the rigid-body transform that maps a point in the body frame to the camera frame — and vice versa.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Coordinate chain for a single depth point:
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  ┌ r00  r01  r02 │ tx ┐
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  │ r10  r11  r12 │ ty │  ← rotation (3×3) + translation (3×1)
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  │ r20  r21  r22 │ tz │
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  └  0    0    0  │  1 ┘
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>  Translation column [tx, ty, tz] = position of the camera in the world
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  Rotation block [R] = which way the camera is pointing
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  pixel (u, v) + depth d
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>         │  K⁻¹
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>         ▼
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  point in camera frame p_C = [X, Y, Z]
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>         │  T_BC⁻¹  (= T_CB, camera to body)
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>         ▼
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  point in body frame p_B
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>         │  T_WB  (body pose in world)
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>         ▼
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>  point in world frame p_W  ← what the planner sees
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">poses</span> <span class="o">=</span> <span class="n">load_poses</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="c1"># shape (T, 4, 4)  — one pose per frame</span>
+<p><code>T_BC</code> is determined during manufacturing (or re-calibrated periodically). It is stored in <code>intrinsics/intrinsics.json</code> for each Spot camera source.</p>
+<hr />
+<h2 id="poses-and-orientations">Poses and Orientations<a class="headerlink" href="#poses-and-orientations" title="Permanent link">&para;</a></h2>
+<p>A <strong>position</strong> is a 3D point <code>[x, y, z]</code> — where something is. A <strong>pose</strong> is position <em>plus</em> orientation — where it is and which way it faces. In code, a pose is always a <code>(4, 4)</code> homogeneous transform matrix (see <a href="../linear_algebra/">Linear Algebra in Python</a>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Pose matrix layout:
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">pose_t</span> <span class="o">=</span> <span class="n">poses</span><span class="p">[</span><span class="mi">42</span><span class="p">]</span>         <span class="c1"># pose at frame 42</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">position</span> <span class="o">=</span> <span class="n">pose_t</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>   <span class="c1"># [tx, ty, tz] — where the camera is</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">rotation</span> <span class="o">=</span> <span class="n">pose_t</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># 3×3 rotation matrix — which way it faces</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  ┌ r00  r01  r02 │ tx ┐
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  │ r10  r11  r12 │ ty │  ← top-left 3×3  = rotation
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  │ r20  r21  r22 │ tz │     top-right 3×1 = translation (= position of frame origin)
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  └  0    0    0  │  1 ┘
+</span></code></pre></div>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">poses</span> <span class="o">=</span> <span class="n">load_poses</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>    <span class="c1"># shape (T, 4, 4)  — one pose per frame</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">pose_t</span> <span class="o">=</span> <span class="n">poses</span><span class="p">[</span><span class="mi">42</span><span class="p">]</span>         <span class="c1"># pose at frame 42</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">position</span> <span class="o">=</span> <span class="n">pose_t</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>   <span class="c1"># [tx, ty, tz] — where the camera was</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">rotation</span> <span class="o">=</span> <span class="n">pose_t</span><span class="p">[:</span><span class="mi">3</span><span class="p">,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># 3×3 rotation matrix — which way it was pointing</span>
 </span></code></pre></div>
 <h3 id="how-poses-are-captured">How Poses Are Captured<a class="headerlink" href="#how-poses-are-captured" title="Permanent link">&para;</a></h3>
-<p>For iPhone data, Apple's ARKit tracks the device pose in real time using <strong>Visual-Inertial Odometry (VIO)</strong> — fusing camera motion estimation and IMU readings. Each frame comes with a <code>(4, 4)</code> pose matrix.</p>
-<p>For Spot, the robot's on-board state estimator fuses wheel odometry + IMU + foot contact to produce a body pose, then the camera-to-body calibration gives camera poses.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Pose coordinate conventions:
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  World frame (fixed):            Camera frame:
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>       z ↑                             z ──► (forward)
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>         │                            /
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>         │_____ y                    x
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>        /                            │
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>       x                             ↓ y (image rows go down)
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  Camera pose T_WC maps camera → world coordinates.
+<p><strong>iPhone (ARKit VIO):</strong> Apple's ARKit fuses visual odometry (tracking feature points between frames) with IMU readings to estimate the device pose at every frame. This is called <strong>Visual-Inertial Odometry (VIO)</strong> — the camera provides heading corrections that stop the IMU from drifting, and the IMU fills in the gaps between camera frames. Each frame comes with a <code>(4, 4)</code> camera-to-world pose.</p>
+<p><strong>Spot (state estimator):</strong> Spot's on-board state estimator runs at ~200 Hz, fusing wheel/leg odometry, IMU, and foot contact forces. The body pose in the odometry frame is published as a SE(3) transform. The camera poses are derived by composing body pose × camera-to-body calibration.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Coordinate conventions:
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  World frame (fixed):            Camera frame (OpenCV convention):
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>       z ↑                             ──────────► z (forward, into scene)
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>         │                            ╱
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>         │───── y                    ╱ x (right)
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        ╱                            │
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>       x                             ▼ y (down — image rows increase downward)
 </span></code></pre></div>
+<p>This matters: if you blindly apply a transform without checking the convention, your point cloud ends up upside-down or mirrored. iPhone ARKit uses the OpenCV convention. Spot uses it too. Check before assuming.</p>
 <hr />
 <h2 id="depth-confidence-maps">Depth Confidence Maps<a class="headerlink" href="#depth-confidence-maps" title="Permanent link">&para;</a></h2>
-<p>Not every depth pixel is reliable. Reflective surfaces (glass, mirrors) confuse structured-light sensors. The iPhone exports a <strong>confidence map</strong> alongside depth:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Confidence values:
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>  0 = low   (discard)
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  1 = medium
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  2 = high  (keep)
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>depth   shape: (H, W)  float32 in meters
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>conf    shape: (H, W)  uint8   values 0/1/2
+<p>Not every depth pixel is reliable. Reflective surfaces (windows, monitors, polished floors), strong specular highlights, and transparent materials all cause structured-light sensors to return incorrect or zero depth values.</p>
+<p>The iPhone exports a <strong>confidence map</strong> alongside every depth frame:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Confidence values:
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  0 = low   (likely invalid — discard before back-projecting)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  1 = medium
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>  2 = high  (reliable)
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>depth   shape: (H, W)  float32  in meters
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>conf    shape: (H, W)  uint8    values 0, 1, 2
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">depth</span> <span class="o">=</span> <span class="n">load_depth</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">conf</span>  <span class="o">=</span> <span class="n">load_conf</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">depth</span><span class="p">[</span><span class="n">conf</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># mask out unreliable pixels before back-projecting</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">depth</span> <span class="o">=</span> <span class="n">load_depth</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">conf</span>  <span class="o">=</span> <span class="n">load_conf</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">depth</span><span class="p">[</span><span class="n">conf</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># zero out unreliable pixels</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">depth</span><span class="p">[</span><span class="n">depth</span> <span class="o">&gt;</span> <span class="n">cfg</span><span class="p">[</span><span class="s2">&quot;max_depth&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="mf">0.0</span>    <span class="c1"># also clip at max range</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">pcd</span> <span class="o">=</span> <span class="n">depth_to_pointcloud</span><span class="p">(</span><span class="n">depth</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>   <span class="c1"># now cleaner</span>
 </span></code></pre></div>
+<p>Skipping the confidence mask is one of the most common sources of noisy point clouds. Reflective floors are particularly bad — they produce phantom points at incorrect depths that look like floating surfaces when visualised.</p>
 <hr />
 <h2 id="boston-dynamics-spot">Boston Dynamics Spot<a class="headerlink" href="#boston-dynamics-spot" title="Permanent link">&para;</a></h2>
-<p>Spot is a quadruped (four-legged) robot. Key hardware relevant to this repo:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Spot top view:
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>          ┌─────────────────────┐
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>  front   │  cam   cam   cam   │   ← 3 depth cameras (front face)
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>  ───────►│                     │
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>          │     body            │
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>          │                     │
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>          │  cam           cam  │   ← 2 depth cameras (sides)
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>          └─────────────────────┘
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>  All 5 cameras stream simultaneously.
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>  6 DoF body pose estimated at ~200 Hz.
+<p>Spot is a <strong>quadruped</strong> — four legs, not wheels. This matters because legged robots can navigate stairs, curbs, and uneven terrain, but their body pose is never perfectly stable: the body pitches and rolls slightly with each step. This pitch-roll motion is fully estimated by the state estimator and is baked into every pose reading, so the depth frames you receive are already corrected for body sway.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Spot top view:
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>          ┌─────────────────────────┐
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>  front   │  cam    cam    cam      │   ← front-left, front, front-right depth
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>  ───────►│                         │
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>          │                         │
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>          │  cam              cam   │   ← left and right depth
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>          │                         │
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>          │                [HAND]   │   ← arm-mounted hand camera (optional)
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>          └─────────────────────────┘
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>  All body cameras stream simultaneously.
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>  Hand camera is only available when the arm is deployed.
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>  Body pose estimated at ~200 Hz.
 </span></code></pre></div>
-<p>The <code>spot/</code> module in this repo connects to Spot via ROS 2 — the robot's driver publishes camera images and poses as ROS topics that our code subscribes to.</p>
+<p><strong>Degrees of freedom:</strong> Spot has 12 motorized joints (3 per leg). The body itself has 6 DoF in free space (3 translation + 3 rotation). The arm (optional) adds another 6 DoF. This complexity is why Spot's SDK exposes a high-level kinematic API rather than raw motor commands — you tell it "stand up" or "walk to waypoint X" and the controller handles the 12 joints.</p>
+<p><strong>Hand camera:</strong> The wrist-mounted <code>hand_color_image</code> and <code>hand_depth</code> cameras are the highest-resolution sensors on the robot and have the best depth quality (structured light at close range). For scene graph construction in tight indoor environments, they are often the best choice, which is why <code>generate_strayscanner_dir(camera="hand_color")</code> defaults to them.</p>
+<div class="admonition tip">
+<p class="admonition-title">Where this shows up in the repo</p>
+<ul>
+<li><code>spot_semantic_mapping/spot/collection/capture.py</code> — streams and saves all camera sources with per-frame metadata</li>
+<li><code>spot_semantic_mapping/spot/dataset.py</code> — <code>SpotDataset</code> loads intrinsics, parses per-camera SE(3) poses, handles confidence maps</li>
+<li><code>core/geometry.py</code> — <code>depth_to_pointcloud()</code>, <code>transform_pointcloud()</code></li>
+<li><code>core/io.py</code> — <code>load_poses()</code> returns <code>(T, 4, 4)</code> arrays</li>
+<li><code>spot_semantic_mapping/spot/telemetry.py</code> — publishes camera and pose data to ROS2 topics in real time</li>
+</ul>
+</div>
 
 
 
@@ -2165,13 +2279,13 @@ K = \begin{bmatrix} f_x &amp; 0 &amp; c_x \\ 0 &amp; f_y &amp; c_y \\ 0 &amp; 0 
         
         
           
-          <a href="../open_problems/" class="md-footer__link md-footer__link--next" aria-label="Next: Open Problems in Robotics">
+          <a href="../ros2/" class="md-footer__link md-footer__link--next" aria-label="Next: ROS2 &amp; Spot Telemetry">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Open Problems in Robotics
+                ROS2 & Spot Telemetry
               </div>
             </div>
             <div class="md-footer__button md-icon">

@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://minhphd.github.io/semantic-mapping-localization/background/open_problems/">
       
       
-        <link rel="prev" href="../robot_hardware/">
+        <link rel="prev" href="../ros2/">
       
       
         <link rel="next" href="../../getting_started/">
@@ -647,6 +647,34 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2 & Spot Telemetry
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -755,10 +783,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#visual-place-recognition-as-a-fix" class="md-nav__link">
+  <a href="#visual-place-recognition-vpr-as-a-fix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Visual Place Recognition as a Fix
+        Visual Place Recognition (VPR) as a Fix
       
     </span>
   </a>
@@ -766,10 +794,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-localization-is-hard" class="md-nav__link">
+  <a href="#why-localization-is-hard-the-short-list" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why Localization Is Hard
+        Why Localization Is Hard (The Short List)
       
     </span>
   </a>
@@ -794,10 +822,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#levels-of-representation" class="md-nav__link">
+  <a href="#the-representation-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Levels of Representation
+        The Representation Hierarchy
       
     </span>
   </a>
@@ -827,10 +855,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-semantic-mapping-is-hard" class="md-nav__link">
+  <a href="#why-semantic-mapping-is-hard-the-short-list" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why Semantic Mapping Is Hard
+        Why Semantic Mapping Is Hard (The Short List)
       
     </span>
   </a>
@@ -847,6 +875,17 @@
     <span class="md-ellipsis">
       
         How This Repo Addresses Both Problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-research-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Research Questions
       
     </span>
   </a>
@@ -1927,10 +1966,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#visual-place-recognition-as-a-fix" class="md-nav__link">
+  <a href="#visual-place-recognition-vpr-as-a-fix" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Visual Place Recognition as a Fix
+        Visual Place Recognition (VPR) as a Fix
       
     </span>
   </a>
@@ -1938,10 +1977,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-localization-is-hard" class="md-nav__link">
+  <a href="#why-localization-is-hard-the-short-list" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why Localization Is Hard
+        Why Localization Is Hard (The Short List)
       
     </span>
   </a>
@@ -1966,10 +2005,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#levels-of-representation" class="md-nav__link">
+  <a href="#the-representation-hierarchy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Levels of Representation
+        The Representation Hierarchy
       
     </span>
   </a>
@@ -1999,10 +2038,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#why-semantic-mapping-is-hard" class="md-nav__link">
+  <a href="#why-semantic-mapping-is-hard-the-short-list" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why Semantic Mapping Is Hard
+        Why Semantic Mapping Is Hard (The Short List)
       
     </span>
   </a>
@@ -2019,6 +2058,17 @@
     <span class="md-ellipsis">
       
         How This Repo Addresses Both Problems
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#open-research-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Research Questions
       
     </span>
   </a>
@@ -2046,56 +2096,72 @@
 
 
 <h1 id="open-problems-in-robotics">Open Problems in Robotics<a class="headerlink" href="#open-problems-in-robotics" title="Permanent link">&para;</a></h1>
-<p>Two of the oldest and hardest unsolved problems in robotics are <strong>localization</strong> and <strong>mapping</strong>. This repo directly addresses both. Understanding why they are hard will help you appreciate every design decision in the codebase.</p>
+<p>If you are reading this, you are probably here because you want to understand what makes autonomous robotics hard. The honest answer is: almost everything. Robots have to perceive the world through imperfect sensors, estimate their own location without GPS, build maps of environments that change, and make decisions in real time — all simultaneously, all while something is mechanically vibrating.</p>
+<p>Two of the oldest and hardest unsolved problems are <strong>localization</strong> and <strong>mapping</strong>. This repo directly addresses both. Understanding why they are hard will help you appreciate every design decision in the codebase — and understand why the "obvious" solutions do not actually work.</p>
 <hr />
 <h2 id="the-core-challenge">The Core Challenge<a class="headerlink" href="#the-core-challenge" title="Permanent link">&para;</a></h2>
 <p>A robot navigating the real world needs to answer two questions at all times:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1. Where am I?              ← Localization
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>2. What does the world look like?  ← Mapping
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>1. Where am I?                      ← Localization
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>2. What does the world look like?   ← Mapping
 </span></code></pre></div>
-<p>These questions are deeply intertwined: to build a map you need to know where you are, and to know where you are you need a map. This chicken-and-egg dependency is called the <strong>SLAM problem</strong> (Simultaneous Localization And Mapping).</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>The SLAM loop:
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  ┌──────────────┐     need map to localize      ┌──────────────┐
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  │              │ ─────────────────────────────► │              │
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  │ Localization │                                │   Mapping    │
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  │              │ ◄───────────────────────────── │              │
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  └──────────────┘     need pose to map           └──────────────┘
-</span></code></pre></div>
+<p>These questions are deeply intertwined: to build an accurate map you need to know where you are, and to know where you are you need a map. This chicken-and-egg dependency is called the <strong>SLAM problem</strong> (Simultaneous Localization And Mapping). It has been studied since the late 1980s and remains an active research area. Not because people are slow — because the problem is genuinely hard.</p>
+<pre class="mermaid"><code>flowchart LR
+    L["Localization\n(Where am I?)"]
+    M["Mapping\n(What's around me?)"]
+    L --&gt;|"need a map\nto localize"| M
+    M --&gt;|"need a pose\nto map"| L</code></pre>
 <hr />
 <h2 id="localization">Localization<a class="headerlink" href="#localization" title="Permanent link">&para;</a></h2>
-<p><strong>Localization</strong> is the problem of determining the robot's position and orientation (its <strong>pose</strong>) in a known environment.</p>
+<p><strong>Localization</strong> is the problem of estimating the robot's position and orientation (its <strong>pose</strong>) in a known or partially-known environment.</p>
 <h3 id="why-not-just-use-gps">Why Not Just Use GPS?<a class="headerlink" href="#why-not-just-use-gps" title="Permanent link">&para;</a></h3>
-<p>GPS is accurate to ~3–5 meters outdoors with clear sky view. Inside a building, GPS signals are too weak. A 3-meter error is also far too large for a robot navigating a room with 1-meter-wide doorways.</p>
+<p>GPS is the obvious answer, and it is wrong for two reasons:</p>
+<ol>
+<li>
+<p><strong>Indoors.</strong> GPS requires line-of-sight to at least 4 satellites. Concrete walls and ceilings attenuate the signal to unusable levels. A robot navigating a hospital, warehouse, or university building has zero GPS signal most of the time.</p>
+</li>
+<li>
+<p><strong>Accuracy.</strong> Consumer GPS is accurate to ±3–5 meters under ideal conditions. A robot navigating a room with 0.8-meter-wide doorways needs centimeter-level accuracy. RTK-GPS can get to centimeters, but requires expensive fixed base stations and still does not work indoors.</p>
+</li>
+</ol>
 <h3 id="dead-reckoning-and-drift">Dead Reckoning and Drift<a class="headerlink" href="#dead-reckoning-and-drift" title="Permanent link">&para;</a></h3>
-<p>The simplest approach: integrate the robot's velocity over time.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Dead reckoning:
+<p>The simplest localization method: integrate the robot's velocity over time. Know your starting position, track how fast and which way you moved, update your estimate.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Dead reckoning:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  Start at [0, 0, 0°]
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Drive forward 1 m  → estimated position [1, 0, 0°]
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  Turn left 90°      → estimated position [1, 0, 90°]
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Drive forward 2 m  → estimated position [1, 2, 90°]
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  ...
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  Every step is: new_pose = old_pose + ΔT(velocity × dt)
+</span></code></pre></div>
+<p>The problem: <strong>every sensor reading has a small error, and those errors accumulate</strong>. A 1% error in wheel odometry means a 1-meter error after driving 100 meters. Turn slightly more than you thought, and every subsequent position estimate is rotated by that much. This is called <strong>drift</strong>, and it is unavoidable with dead reckoning alone.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Drift over time:
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  Start at [0, 0, 0°]
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Drive forward 1 m  → estimated position [1, 0, 0°]
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  Turn left 90°      → estimated position [1, 0, 90°]
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>  Drive forward 1 m  → estimated position [1, 1, 90°]
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  ...
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  True path:        ──────────────────────────────────────►
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  Estimated path:   ────────────────╱──────────╱────────────
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                                 drift      more drift
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>  Error grows roughly as √(distance traveled)
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  1% error, 100 m traveled → ~1 m position error
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  1% error, 10 km traveled → ~10 m position error
 </span></code></pre></div>
-<p>Every sensor reading has a small error. Those errors <strong>accumulate</strong> — after driving 100 m, the position estimate can be off by several meters. This is called <strong>drift</strong>.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Drift over time:
+<p>Spot's on-board state estimator is excellent — it fuses wheel odometry, IMU, and foot contact forces at 200 Hz. But it still drifts. After a 10-minute exploration session, the accumulated error can be several centimeters to tens of centimeters depending on terrain.</p>
+<h3 id="visual-place-recognition-vpr-as-a-fix">Visual Place Recognition (VPR) as a Fix<a class="headerlink" href="#visual-place-recognition-vpr-as-a-fix" title="Permanent link">&para;</a></h3>
+<p><strong>VPR</strong> corrects drift by matching the current camera view against a database of frames with known ground-truth positions. When a match is found, you get an absolute position estimate — resetting the accumulated drift.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>VPR corrects drift:
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  True path:       ─────────────────────────────────────►
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  Estimated path:  ─────────────────/───────/──────────────
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                                  drift     more drift
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  Error grows roughly as √(distance traveled)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  Dead reckoning: &quot;I think I&#39;m at [3.2, 1.1, 0.0]&quot;
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                         │
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                         ▼  DINOv2 + VLAD encode current frame
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>                         ▼  compare to database of reference frames
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>                         │
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>  Best match: Frame 47  →  &quot;This view was recorded at [3.0, 0.9, 0.0]&quot;
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>                         │
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>  Corrected pose: [3.0, 0.9, 0.0]   drift reset
 </span></code></pre></div>
-<h3 id="visual-place-recognition-as-a-fix">Visual Place Recognition as a Fix<a class="headerlink" href="#visual-place-recognition-as-a-fix" title="Permanent link">&para;</a></h3>
-<p>This repo solves drift by <strong>matching the current camera image to a database</strong> of previously seen frames. The database stores images with known positions. Finding the closest match gives an absolute position estimate — resetting the accumulated error.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>VPR corrects drift:
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  Dead reckoning estimate: &quot;I think I&#39;m at [3.2, 1.1]&quot;
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  VPR match: &quot;This view matches Frame 47, which was at [3.0, 0.9]&quot;
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  Corrected estimate: [3.0, 0.9]
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  Drift reset.
-</span></code></pre></div>
-<h3 id="why-localization-is-hard">Why Localization Is Hard<a class="headerlink" href="#why-localization-is-hard" title="Permanent link">&para;</a></h3>
+<p>This is the approach used in this repo. The VPR module retrieves not just a position but also the nearby scene graph subgraph — so the robot can answer "what objects are near me right now?" immediately after localization.</p>
+<h3 id="why-localization-is-hard-the-short-list">Why Localization Is Hard (The Short List)<a class="headerlink" href="#why-localization-is-hard-the-short-list" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2105,78 +2171,106 @@
 </thead>
 <tbody>
 <tr>
-<td>Perceptual aliasing</td>
-<td>Two different places look the same (long corridor with identical doors)</td>
+<td><strong>Perceptual aliasing</strong></td>
+<td>Two different places look nearly identical (long corridor with identical doors every 3 m)</td>
 </tr>
 <tr>
-<td>Dynamic environments</td>
-<td>People, furniture rearranged — the map is outdated</td>
+<td><strong>Dynamic environments</strong></td>
+<td>People walk through the scene; furniture gets rearranged; the map is outdated</td>
 </tr>
 <tr>
-<td>Viewpoint change</td>
-<td>Same place looks very different from a different angle</td>
+<td><strong>Viewpoint change</strong></td>
+<td>The same location looks very different when approached from a different angle or height</td>
 </tr>
 <tr>
-<td>Lighting variation</td>
-<td>Daylight vs artificial light drastically changes appearance</td>
+<td><strong>Lighting variation</strong></td>
+<td>Fluorescent vs. natural light changes pixel values drastically — a model trained in the morning may fail at night</td>
 </tr>
 <tr>
-<td>Computational cost</td>
-<td>Comparing one query to millions of database images in real time</td>
+<td><strong>Computational latency</strong></td>
+<td>Encoding a query frame and searching a database of thousands must complete in &lt;100 ms for real-time use</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td>A real building has hundreds of rooms — the database grows linearly, but search time should not</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="mapping">Mapping<a class="headerlink" href="#mapping" title="Permanent link">&para;</a></h2>
-<p><strong>Mapping</strong> is the problem of building a representation of the environment from sensor data.</p>
-<h3 id="levels-of-representation">Levels of Representation<a class="headerlink" href="#levels-of-representation" title="Permanent link">&para;</a></h3>
-<p>Not all maps are equally useful. There is a hierarchy from geometric to semantic:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Geometric maps (what shape is the world?):
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  Occupancy grid    2D: which cells are free / occupied?
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  Point cloud       3D: where are the surfaces?
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>  Mesh              3D: smooth triangle surface
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  TSDF              3D: volumetric signed distance function
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Semantic maps (what does the world mean?):
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  Labeled point cloud   each point tagged with a class name
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>  Scene graph           objects as nodes, relations as edges
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>                        ← what this repo builds
+<p><strong>Mapping</strong> is the problem of building a useful representation of the environment from sensor data — one that is accurate, compact, and actionable.</p>
+<h3 id="the-representation-hierarchy">The Representation Hierarchy<a class="headerlink" href="#the-representation-hierarchy" title="Permanent link">&para;</a></h3>
+<p>Not all maps are equally useful. There is a spectrum from raw geometry to rich semantics:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Geometric maps (where are the surfaces?):
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  Occupancy grid ──► 2D top-down: each cell = free | occupied | unknown
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>  Point cloud    ──► 3D: set of (x, y, z) points on surfaces
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  Mesh           ──► 3D: triangulated surface (watertight, renderable)
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>  TSDF           ──► 3D: signed distance field in a voxel grid
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                         → positive inside obstacles, negative outside
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>                         → can extract a mesh at the zero-crossing
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>Semantic maps (what does the world mean?):
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>  Labeled point cloud  ──► each point tagged with a class name
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>  Object-level map     ──► objects as 3D bounding boxes with class labels
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>  Scene graph          ──► objects as nodes, spatial relations as edges
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>                           ← what this repo builds
 </span></code></pre></div>
+<p>As you go up the hierarchy, maps become more useful for high-level tasks (natural language queries, task planning, navigation by landmark) but require more computation and more information to build.</p>
 <h3 id="why-not-just-stack-point-clouds">Why Not Just Stack Point Clouds?<a class="headerlink" href="#why-not-just-stack-point-clouds" title="Permanent link">&para;</a></h3>
-<p>A naive map is just a union of all back-projected depth frames. Problems:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Problem 1: Drift corrupts alignment
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  Frame 1 (true pose):     chair here ●
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  Frame 200 (drifted pose): chair here   ●
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                                       ↑ ghost duplicate from drift
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Problem 2: No semantic meaning
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  A point cloud tells you where the surfaces are.
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>  It does not tell you: &quot;that surface is a chair&quot;
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>  or &quot;that chair is next to a desk.&quot;
+<p>A naïve map is the union of all back-projected depth frames. Every frame adds its points. Problems:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Problem 1: Drift corrupts alignment
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  Frame 1   (true pose):     chair here → ●
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  Frame 200 (drifted pose):  chair here →    ●
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>                                          ↑ ghost duplicate from drift
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  Result: two ghost chairs instead of one
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>Problem 2: Scale
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>  A 5-minute RGB-D scan at 30 fps = 9000 frames
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>  A 256×192 depth frame = 49,152 pixels
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>  9000 × 49,152 = ~440 million points
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>  Most of those points are redundant — they describe the same surfaces
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>  from slightly different viewpoints. The map is 440M points and still
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>  does not tell you there is a chair.
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>Problem 3: No semantic meaning
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>  A point cloud tells you where the surfaces are.
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>  It cannot answer: &quot;Is that surface a chair?&quot;
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>                    &quot;Is the laptop on top of the desk?&quot;
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>                    &quot;Which way is the exit?&quot;
 </span></code></pre></div>
 <h3 id="the-scene-graph-approach">The Scene Graph Approach<a class="headerlink" href="#the-scene-graph-approach" title="Permanent link">&para;</a></h3>
-<p>This repo builds a <strong>semantic scene graph</strong> — a structured map where:</p>
-<ul>
-<li>Every object is a node with a 3D position and a natural-language caption</li>
-<li>Every edge is a spatial relation between two objects</li>
-</ul>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Semantic map (scene graph):
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  [lamp]──near──►[desk]──on_top_of◄──[laptop]
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>                    │
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>                 left_of
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                    │
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>                  [chair]
+<p>This repo builds a <strong>semantic scene graph</strong>: a compact, queryable, language-grounded map.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Semantic map (scene graph):
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  [floor lamp] ──── near ────► [desk] ◄── on_top_of ── [laptop]
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>                                  │
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                               left_of
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                                  │
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>                               [chair]
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>  Each node: {
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    id: 3,
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    label: &quot;desk&quot;,
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    centroid: [1.2, 2.0, 0.75],
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    caption: &quot;a brown wooden desk with metal legs&quot;,
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>    point_cloud: (N, 3),
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>    edges: [...]
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>  }
 </span></code></pre></div>
-<p>This representation is:
-- <strong>Queryable</strong> — "find all objects near the desk"
-- <strong>Compact</strong> — 50 object nodes instead of 5 million points
-- <strong>Actionable</strong> — a robot can plan a path using object relations</p>
-<h3 id="why-semantic-mapping-is-hard">Why Semantic Mapping Is Hard<a class="headerlink" href="#why-semantic-mapping-is-hard" title="Permanent link">&para;</a></h3>
+<p>A scene graph is:</p>
+<ul>
+<li><strong>Queryable in natural language</strong> — "find all objects near the desk" → traverse edges from the <code>desk</code> node</li>
+<li><strong>Compact</strong> — 20 object nodes instead of 40 million points</li>
+<li><strong>Drift-resistant</strong> — each object's position is the centroid of all its merged point cloud observations; per-frame drift averages out over many views</li>
+<li><strong>Actionable</strong> — a robot can plan a path or answer questions using object labels and relations without any vision model running at navigation time</li>
+</ul>
+<h3 id="why-semantic-mapping-is-hard-the-short-list">Why Semantic Mapping Is Hard (The Short List)<a class="headerlink" href="#why-semantic-mapping-is-hard-the-short-list" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -2186,57 +2280,75 @@
 </thead>
 <tbody>
 <tr>
-<td>Object permanence</td>
-<td>The same chair seen from 100 different angles — is it 1 object or 100?</td>
+<td><strong>Object permanence</strong></td>
+<td>The same chair seen from 100 different angles across 500 frames — which detections are the same object?</td>
 </tr>
 <tr>
-<td>Occlusion</td>
-<td>Objects partially hidden behind other objects</td>
+<td><strong>Occlusion</strong></td>
+<td>Objects partially hidden by other objects look completely different when half-visible</td>
 </tr>
 <tr>
-<td>Instance disambiguation</td>
-<td>Two identical chairs — tracking which is which</td>
+<td><strong>Instance disambiguation</strong></td>
+<td>Two identical chairs at opposite ends of the room — how do you track which is which?</td>
 </tr>
 <tr>
-<td>Relation ambiguity</td>
-<td>Is the cup "near" the laptop or "on top of" the desk?</td>
+<td><strong>Relation ambiguity</strong></td>
+<td>Is the cup "near" the laptop, "on top of" the desk, or both? The answer depends on viewpoint and definition</td>
 </tr>
 <tr>
-<td>Scale</td>
-<td>A real building has thousands of objects — needs to stay efficient</td>
+<td><strong>Scale</strong></td>
+<td>Real buildings have hundreds of objects — the tracker and scene graph must stay efficient</td>
+</tr>
+<tr>
+<td><strong>Caption consistency</strong></td>
+<td>BLIP-2 generates slightly different captions for the same object from different angles — which one is "the truth"?</td>
 </tr>
 </tbody>
 </table>
 <hr />
 <h2 id="how-this-repo-addresses-both-problems">How This Repo Addresses Both Problems<a class="headerlink" href="#how-this-repo-addresses-both-problems" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Mapping:
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>  RGB-D frames + YOLO + SAM
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>       │
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>       ▼
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>  ObjectTracker3D   ← solves instance disambiguation with geometry + SigLIP
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>       │
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>       ▼
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>  BLIP-2 captioning + LLM relation extraction
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>       │
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>       ▼
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>  scene_graph.json  ← semantic map
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>Localization:
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>  New camera image
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>       │
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>       ▼
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>  DINOv2 + VLAD encoding
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>       │
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>       ▼
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>  Cosine similarity search against database
-</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>       │
-</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>       ▼
-</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>  Top-k matches → estimated position
-</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>       │
-</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>       ▼
-</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>  Subgraph retrieval  ← &quot;what objects are near me right now?&quot;
-</span></code></pre></div>
-<p>The two modules are intentionally separate: mapping runs offline (once, building the scene graph), and localization runs online (each time the robot needs to know where it is).</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Mapping (offline, once)"
+        A["RGB-D frames + camera poses"]
+        B["YOLO + SAM\ndetect &amp; segment"]
+        C["Back-project depth\n→ 3D point cloud per detection"]
+        D["ObjectTracker3D\ngeometry + SigLIP association"]
+        E["BLIP-2 captioning\nLLM relation extraction"]
+        F["scene_graph.json"]
+        A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F
+    end
+
+    subgraph "Localization (online, real-time)"
+        G["New camera frame"]
+        H["DINOv2 + VLAD\nencode query"]
+        I["FAISS nearest-neighbor search\nagainst reference database"]
+        J["Top-k matches\n→ estimated pose"]
+        K["Subgraph retrieval\n'what objects are near me?'"]
+        G --&gt; H --&gt; I --&gt; J --&gt; K
+    end
+
+    F --&gt;|"provides semantic context"| K</code></pre>
+<p>The two modules are intentionally decoupled:</p>
+<ul>
+<li><strong>Mapping</strong> runs offline. You walk the robot through the environment once, build the scene graph, save it. Expensive models (BLIP-2, LLM) can run without a time constraint.</li>
+<li><strong>Localization</strong> runs online at query time. The bottleneck is DINOv2 encoding + FAISS search, which together take ~50 ms on a modern GPU — fast enough for real-time navigation.</li>
+</ul>
+<p>The scene graph acts as the "long-term memory" that localization can draw on. Once you have matched an image to a reference frame, the subgraph tells you not just "I am at position X" but "I am near the desk, which is next to the chair, which is left of the whiteboard."</p>
+<hr />
+<h2 id="open-research-questions">Open Research Questions<a class="headerlink" href="#open-research-questions" title="Permanent link">&para;</a></h2>
+<p>This is an active research area. A few open problems that this repo has not fully solved (and that nobody else has fully solved either):</p>
+<p><strong>Lifelong mapping.</strong> Environments change. The chair gets moved. The desk gets replaced. How do you update a scene graph without rebuilding it from scratch? Current approaches involve change detection and partial map updates, but robust lifelong semantic mapping is still an open problem.</p>
+<p><strong>Semantic drift.</strong> BLIP-2 captions are noisy — the same object gets described slightly differently depending on lighting, viewpoint, and model temperature. How do you build a consistent label when the labeler is stochastic? Majority voting helps; it does not fully solve it.</p>
+<p><strong>Cross-scene generalization.</strong> A VPR system trained on one building fails in a different building because the embedding space is not universal. Domain-adapted VLAD and contrastive fine-tuning help at the cost of requiring labeled data from the new environment.</p>
+<p><strong>Real-time semantic mapping.</strong> This repo runs mapping offline. Doing it in real time — running YOLO, SAM, SigLIP, BLIP-2, and the tracker at frame rate — requires careful pipelining and hardware. This is the direction the field is moving.</p>
+<div class="admonition tip">
+<p class="admonition-title">Further reading</p>
+<ul>
+<li>Cadena et al., "Past, Present, and Future of Simultaneous Localization And Mapping" (IEEE T-RO 2016) — the canonical SLAM survey</li>
+<li>Gu et al., "ConceptGraphs" (arXiv 2023) — open-vocabulary 3D scene graphs (the closest published work to this repo's approach)</li>
+<li>Sarlin et al., "HLoc: Hierarchical Localization" (CVPR 2019) — state-of-the-art VPR pipeline</li>
+</ul>
+</div>
 
 
 
@@ -2274,7 +2386,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../robot_hardware/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Robot Hardware">
+          <a href="../ros2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ROS2 &amp; Spot Telemetry">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2284,7 +2396,7 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Robot Hardware
+                ROS2 & Spot Telemetry
               </div>
             </div>
           </a>

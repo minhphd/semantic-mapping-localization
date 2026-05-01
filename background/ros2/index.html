@@ -12,13 +12,13 @@
         <meta name="author" content="Minh Pham-Dinh">
       
       
-        <link rel="canonical" href="https://minhphd.github.io/semantic-mapping-localization/prerequisites/open3d/">
+        <link rel="canonical" href="https://minhphd.github.io/semantic-mapping-localization/background/ros2/">
       
       
-        <link rel="prev" href="../pytorch/">
+        <link rel="prev" href="../robot_hardware/">
       
       
-        <link rel="next" href="../../concepts/architecture/">
+        <link rel="next" href="../open_problems/">
       
       
         
@@ -29,7 +29,7 @@
     
     
       
-        <title>Open3D - Spot Semantic Mapping</title>
+        <title>ROS2 & Spot Telemetry - Spot Semantic Mapping</title>
       
     
     
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#open3d" class="md-skip">
+        <a href="#ros2-spot-telemetry" class="md-skip">
           Skip to content
         </a>
       
@@ -120,7 +120,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Open3D
+              ROS2 & Spot Telemetry
             
           </span>
         </div>
@@ -244,11 +244,13 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../background/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
           
   
   
@@ -264,12 +266,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../../getting_started/" class="md-tabs__link">
           
   
@@ -424,24 +424,29 @@
       
   
   
+    
   
   
+  
     
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
             
   
   
@@ -459,7 +464,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -477,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -505,7 +510,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/linear_algebra/" class="md-nav__link">
+      <a href="../linear_algebra/" class="md-nav__link">
         
   
   
@@ -533,7 +538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/machine_learning/" class="md-nav__link">
+      <a href="../machine_learning/" class="md-nav__link">
         
   
   
@@ -561,7 +566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/computer_vision/" class="md-nav__link">
+      <a href="../computer_vision/" class="md-nav__link">
         
   
   
@@ -589,7 +594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/nlp/" class="md-nav__link">
+      <a href="../nlp/" class="md-nav__link">
         
   
   
@@ -617,7 +622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/robot_hardware/" class="md-nav__link">
+      <a href="../robot_hardware/" class="md-nav__link">
         
   
   
@@ -642,10 +647,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../background/ros2/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2 & Spot Telemetry
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -661,6 +693,98 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-ros2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is ROS2?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spot-telemetry-bridge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spot Telemetry Bridge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spot Telemetry Bridge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#published-topics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Published Topics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publisher-classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publisher Classes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#typical-workflow-with-ros2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Workflow with ROS2
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -673,7 +797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../background/open_problems/" class="md-nav__link">
+      <a href="../open_problems/" class="md-nav__link">
         
   
   
@@ -705,29 +829,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -745,7 +864,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -872,8 +991,6 @@
                 
   
   
-    
-  
   
   
     
@@ -884,11 +1001,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
         
           
           <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
@@ -909,7 +1026,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -927,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../prerequisites/" class="md-nav__link">
         
   
   
@@ -955,7 +1072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../docker/" class="md-nav__link">
+      <a href="../../prerequisites/docker/" class="md-nav__link">
         
   
   
@@ -983,7 +1100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../conda/" class="md-nav__link">
+      <a href="../../prerequisites/conda/" class="md-nav__link">
         
   
   
@@ -1011,7 +1128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pytorch/" class="md-nav__link">
+      <a href="../../prerequisites/pytorch/" class="md-nav__link">
         
   
   
@@ -1036,37 +1153,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Open3D
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../prerequisites/open3d/" class="md-nav__link">
         
   
   
@@ -1082,153 +1172,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#what-is-a-point-cloud" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is a Point Cloud?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-depth-maps-become-point-clouds" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Depth Maps Become Point Clouds
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#core-open3d-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core Open3D Concepts
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Open3D Concepts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pointcloud-object" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        PointCloud Object
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#voxel-downsampling" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Voxel Downsampling
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dbscan-clustering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DBSCAN Clustering
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#point-cloud-iou" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Point Cloud IOU
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coordinate-frame-transforms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coordinate Frame Transforms
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#open3d-in-this-project" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Open3D in This Project
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#further-reading" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Further Reading
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1895,10 +1838,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-a-point-cloud" class="md-nav__link">
+  <a href="#what-is-ros2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is a Point Cloud?
+        What is ROS2?
       
     </span>
   </a>
@@ -1906,33 +1849,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-depth-maps-become-point-clouds" class="md-nav__link">
+  <a href="#spot-telemetry-bridge" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How Depth Maps Become Point Clouds
+        Spot Telemetry Bridge
       
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#core-open3d-concepts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core Open3D Concepts
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Core Open3D Concepts">
+    <nav class="md-nav" aria-label="Spot Telemetry Bridge">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#pointcloud-object" class="md-nav__link">
+  <a href="#published-topics" class="md-nav__link">
     <span class="md-ellipsis">
       
-        PointCloud Object
+        Published Topics
       
     </span>
   </a>
@@ -1940,43 +1872,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#voxel-downsampling" class="md-nav__link">
+  <a href="#publisher-classes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Voxel Downsampling
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dbscan-clustering" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DBSCAN Clustering
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#point-cloud-iou" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Point Cloud IOU
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#coordinate-frame-transforms" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Coordinate Frame Transforms
+        Publisher Classes
       
     </span>
   </a>
@@ -1989,21 +1888,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#open3d-in-this-project" class="md-nav__link">
+  <a href="#typical-workflow-with-ros2" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Open3D in This Project
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Installation
+        Typical Workflow with ROS2
       
     </span>
   </a>
@@ -2041,159 +1929,116 @@
   
 
 
-<h1 id="open3d">Open3D<a class="headerlink" href="#open3d" title="Permanent link">&para;</a></h1>
-<p>Open3D is an open-source library for 3D data processing. In Spot Semantic Mapping it is the backbone for all point cloud operations: constructing per-object 3D representations, computing overlap between objects, DBSCAN clustering, and visualisation.</p>
-<hr />
-<h2 id="what-is-a-point-cloud">What is a Point Cloud?<a class="headerlink" href="#what-is-a-point-cloud" title="Permanent link">&para;</a></h2>
-<p>A point cloud is a collection of 3D points sampled from the surface of objects in a scene. Each point stores at minimum its <code>(x, y, z)</code> coordinates; in this project points also store RGB colour and semantic labels.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Point cloud of a chair:
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  (0.12, 1.43, 0.05, R=180, G=120, B=80)
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  (0.11, 1.44, 0.08, R=178, G=119, B=82)
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ...  (thousands of points)
-</span></code></pre></div>
-<p>Point clouds come from <strong>depth cameras</strong> that measure the distance to each pixel — projecting depth + RGB into 3D gives a coloured point cloud.</p>
-<hr />
-<h2 id="how-depth-maps-become-point-clouds">How Depth Maps Become Point Clouds<a class="headerlink" href="#how-depth-maps-become-point-clouds" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>flowchart LR
-    A["Depth frame\n(H×W, mm)"] --&gt; B["Back-project\nvia camera intrinsics"]
-    C["RGB frame\n(H×W×3)"] --&gt; D["Colour lookup\nper pixel"]
-    B --&gt; E["3D points\n(N×3)"]
-    D --&gt; E
-    F["Camera pose\n4×4 matrix"] --&gt; G["Transform to\nworld frame"]
-    E --&gt; G
-    G --&gt; H["Coloured point cloud\n(world coords)"]
-
-    style H fill:#6750a4,color:#fff,stroke:none</code></pre>
-<p>The projection formula for a point at pixel <code>(u, v)</code> with depth <code>d</code>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>x = (u - cx) * d / fx
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>y = (v - cy) * d / fy
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>z = d
-</span></code></pre></div>
-<p>where <code>(fx, fy, cx, cy)</code> are the camera <strong>intrinsic parameters</strong> (focal length and principal point).</p>
-<hr />
-<h2 id="core-open3d-concepts">Core Open3D Concepts<a class="headerlink" href="#core-open3d-concepts" title="Permanent link">&para;</a></h2>
-<h3 id="pointcloud-object">PointCloud Object<a class="headerlink" href="#pointcloud-object" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">open3d</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">o3d</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Create from raw arrays</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">PointCloud</span><span class="p">()</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">pcd</span><span class="o">.</span><span class="n">points</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">pcd</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">utility</span><span class="o">.</span><span class="n">Vector3dVector</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>  <span class="c1"># RGB [0,1]</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="c1"># Load / save</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">pcd</span> <span class="o">=</span> <span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">read_point_cloud</span><span class="p">(</span><span class="s2">&quot;semantics.ply&quot;</span><span class="p">)</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">o3d</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">write_point_cloud</span><span class="p">(</span><span class="s2">&quot;output.ply&quot;</span><span class="p">,</span> <span class="n">pcd</span><span class="p">)</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="c1"># Visualise (opens a window)</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_geometries</span><span class="p">([</span><span class="n">pcd</span><span class="p">])</span>
-</span></code></pre></div>
-<h3 id="voxel-downsampling">Voxel Downsampling<a class="headerlink" href="#voxel-downsampling" title="Permanent link">&para;</a></h3>
-<p>Large point clouds (millions of points) need to be subsampled for efficiency:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Average all points within each 5 cm voxel</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">pcd_down</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-</span></code></pre></div>
-<h3 id="dbscan-clustering">DBSCAN Clustering<a class="headerlink" href="#dbscan-clustering" title="Permanent link">&para;</a></h3>
-<p>DBSCAN groups spatially close points into clusters and marks outliers as noise — used in this project to separate individual object point clouds from background:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># eps=0.1 m radius, min 10 points to form a cluster</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">cluster_dbscan</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">min_points</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># labels[i] = cluster index (-1 means noise)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">max_label</span> <span class="o">=</span> <span class="n">labels</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found </span><span class="si">{</span><span class="n">max_label</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2"> clusters&quot;</span><span class="p">)</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="c1"># Extract the largest cluster</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="n">largest</span> <span class="o">=</span> <span class="n">labels</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bincount</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">labels</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="n">pcd_object</span> <span class="o">=</span> <span class="n">pcd</span><span class="o">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">largest</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
-</span></code></pre></div>
-<h3 id="point-cloud-iou">Point Cloud IOU<a class="headerlink" href="#point-cloud-iou" title="Permanent link">&para;</a></h3>
-<p>This project uses point cloud overlap (Intersection over Union) as a geometric similarity metric for object tracking:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">point_cloud_iou</span><span class="p">(</span><span class="n">pcd_a</span><span class="p">,</span> <span class="n">pcd_b</span><span class="p">,</span> <span class="n">voxel_size</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="c1"># Voxelise both clouds</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">vox_a</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd_a</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span><span class="o">.</span><span class="n">points</span><span class="p">)))</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">vox_b</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd_b</span><span class="o">.</span><span class="n">voxel_down_sample</span><span class="p">(</span><span class="n">voxel_size</span><span class="p">)</span><span class="o">.</span><span class="n">points</span><span class="p">)))</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">intersection</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vox_a</span> <span class="o">&amp;</span> <span class="n">vox_b</span><span class="p">)</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">union</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">vox_a</span> <span class="o">|</span> <span class="n">vox_b</span><span class="p">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="k">return</span> <span class="n">intersection</span> <span class="o">/</span> <span class="n">union</span> <span class="k">if</span> <span class="n">union</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
-</span></code></pre></div>
-<h3 id="coordinate-frame-transforms">Coordinate Frame Transforms<a class="headerlink" href="#coordinate-frame-transforms" title="Permanent link">&para;</a></h3>
-<p>Poses are represented as <code>4×4</code> homogeneous transformation matrices:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Apply a camera-to-world transform</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">pcd</span><span class="o">.</span><span class="n">points</span><span class="p">)</span>             <span class="c1"># (N, 3)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">pts_h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">pts</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">pts</span><span class="p">),</span> <span class="mi">1</span><span class="p">))])</span>   <span class="c1"># homogeneous (N, 4)</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">pts_world</span> <span class="o">=</span> <span class="p">(</span><span class="n">T_world_cam</span> <span class="o">@</span> <span class="n">pts_h</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>       <span class="c1"># transform and drop homogeneous</span>
-</span></code></pre></div>
-<hr />
-<h2 id="open3d-in-this-project">Open3D in This Project<a class="headerlink" href="#open3d-in-this-project" title="Permanent link">&para;</a></h2>
+<h1 id="ros2-spot-telemetry">ROS2 &amp; Spot Telemetry<a class="headerlink" href="#ros2-spot-telemetry" title="Permanent link">&para;</a></h1>
+<h2 id="what-is-ros2">What is ROS2?<a class="headerlink" href="#what-is-ros2" title="Permanent link">&para;</a></h2>
+<p>ROS2 (Robot Operating System 2) is a middleware framework for building robot software. It provides a publish-subscribe messaging system that lets separate processes — running on the same machine or across a network — exchange sensor data, commands, and state without being tightly coupled.</p>
+<p>Key concepts:</p>
 <table>
 <thead>
 <tr>
-<th>Operation</th>
-<th>Where used</th>
-<th>Open3D API</th>
+<th>Term</th>
+<th>Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Depth → 3D projection</td>
-<td><code>core/geometry.py</code></td>
-<td><code>create_point_cloud_from_depth_image</code></td>
+<td><strong>Node</strong></td>
+<td>A single process that participates in the ROS2 graph</td>
 </tr>
 <tr>
-<td>DBSCAN clustering</td>
-<td><code>core/geometry.py</code></td>
-<td><code>cluster_dbscan</code></td>
+<td><strong>Topic</strong></td>
+<td>A named channel over which nodes publish or subscribe to messages</td>
 </tr>
 <tr>
-<td>Voxel downsampling</td>
-<td><code>mapping/tracker.py</code></td>
-<td><code>voxel_down_sample</code></td>
+<td><strong>Message</strong></td>
+<td>A typed data structure exchanged on a topic (e.g. <code>sensor_msgs/Image</code>)</td>
 </tr>
 <tr>
-<td>IOU computation</td>
-<td><code>mapping/tracker.py</code></td>
-<td>Custom voxelised set ops</td>
-</tr>
-<tr>
-<td>Top-down projection</td>
-<td><code>core/geometry.py</code></td>
-<td><code>construct_top_down</code></td>
-</tr>
-<tr>
-<td>PLY export</td>
-<td><code>mapping/pipeline.py</code></td>
-<td><code>write_point_cloud</code></td>
-</tr>
-<tr>
-<td>Interactive viz</td>
-<td><code>core/visualization.py</code></td>
-<td><code>draw_geometries</code></td>
+<td><strong><code>rclpy</code></strong></td>
+<td>The Python client library for ROS2</td>
 </tr>
 </tbody>
 </table>
+<p>In this project, ROS2 is used as the runtime bus that carries Spot's live sensor data and the computed scene graph to downstream consumers (navigation planners, visualisers, logging tools).</p>
 <hr />
-<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
-<p>Open3D is included in the conda environment:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="nv">open3d</span><span class="o">=</span><span class="m">0</span>.19.0
+<h2 id="spot-telemetry-bridge">Spot Telemetry Bridge<a class="headerlink" href="#spot-telemetry-bridge" title="Permanent link">&para;</a></h2>
+<p>The file <code>spot_semantic_mapping/spot/telemetry.py</code> implements two publisher classes that bridge the Boston Dynamics Spot SDK to ROS2.</p>
+<h3 id="published-topics">Published Topics<a class="headerlink" href="#published-topics" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Topic</th>
+<th>Message type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/spot/pose</code></td>
+<td><code>geometry_msgs/PoseStamped</code></td>
+<td>Robot body pose in the odometry frame</td>
+</tr>
+<tr>
+<td><code>/spot/graph</code></td>
+<td><code>std_msgs/String</code></td>
+<td>Scene graph serialised as JSON</td>
+</tr>
+<tr>
+<td><code>/spot/twist</code></td>
+<td><code>geometry_msgs/TwistStamped</code></td>
+<td>Robot linear and angular velocity</td>
+</tr>
+<tr>
+<td><code>/spot/battery</code></td>
+<td><code>sensor_msgs/BatteryState</code></td>
+<td>Battery level and status</td>
+</tr>
+<tr>
+<td><code>/spot/cameras/&lt;cam&gt;/color</code></td>
+<td><code>sensor_msgs/Image</code></td>
+<td>RGB image for each active camera</td>
+</tr>
+<tr>
+<td><code>/spot/cameras/&lt;cam&gt;/depth</code></td>
+<td><code>sensor_msgs/Image</code></td>
+<td>Depth image for each active camera</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;cam&gt;</code> is the Spot camera source name (e.g. <code>frontleft</code>, <code>frontright</code>, <code>hand_color</code>).</p>
+<h3 id="publisher-classes">Publisher Classes<a class="headerlink" href="#publisher-classes" title="Permanent link">&para;</a></h3>
+<p><strong><code>SpotObservationPublisher</code></strong> — async-based, ~5 Hz</p>
+<p>Suitable for low-bandwidth consumers such as a scene graph updater or a map visualiser. Uses an asyncio event loop in a separate thread.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spot_semantic_mapping.spot.telemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">main_standard</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">main_standard</span><span class="p">()</span>  <span class="c1"># blocks; press Ctrl+C to stop</span>
 </span></code></pre></div>
-<p>Or with pip:</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>pip<span class="w"> </span>install<span class="w"> </span><span class="nv">open3d</span><span class="o">==</span><span class="m">0</span>.19.0
+<p><strong><code>FastSpotObservationPublisher</code></strong> — thread-safe, up to 50 Hz</p>
+<p>Suitable for high-rate consumers such as a real-time navigation stack. Uses synchronous <code>agent.get_observation()</code> snapshots with a dedicated publisher thread.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">spot_semantic_mapping.spot.telemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">main_fast</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">main_fast</span><span class="p">()</span>  <span class="c1"># blocks; press Ctrl+C to stop</span>
 </span></code></pre></div>
-<div class="admonition warning">
-<p class="admonition-title">Headless servers</p>
-<p>Open3D's visualiser requires a display. On a headless server use off-screen rendering:
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">open3d</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">o3d</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">o3d</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">rendering</span><span class="o">.</span><span class="n">OffscreenRenderer</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-</span></code></pre></div>
-Or save the point cloud as a <code>.ply</code> and visualise locally.</p>
+<div class="admonition note">
+<p class="admonition-title">Hostname</p>
+<p>Both entry points currently have the lab Spot IP (<code>137.146.188.170</code>) hardcoded. Update the <code>hostname</code> argument in <code>telemetry.py</code> if you are connecting to a different robot.</p>
 </div>
+<hr />
+<h2 id="typical-workflow-with-ros2">Typical Workflow with ROS2<a class="headerlink" href="#typical-workflow-with-ros2" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Spot SDK  ──►  telemetry.py  ──►  ROS2 topics  ──►  your node
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>                                  /spot/pose
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>                                  /spot/graph
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>                                  /spot/cameras/…
+</span></code></pre></div>
+<ol>
+<li>Ensure ROS2 is sourced in your shell (<code>source /opt/ros/humble/setup.bash</code>).</li>
+<li>Start the telemetry bridge (<code>main_standard</code> or <code>main_fast</code>).</li>
+<li>Subscribe to the relevant topics in your consumer node using <code>rclpy</code>.</li>
+</ol>
 <hr />
 <h2 id="further-reading">Further Reading<a class="headerlink" href="#further-reading" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="http://www.open3d.org/docs/release/">Open3D official documentation</a></li>
-<li><a href="http://www.open3d.org/docs/release/tutorial/geometry/pointcloud.html">Open3D point cloud tutorial</a></li>
-<li><a href="http://www.open3d.org/docs/release/tutorial/reconstruction_system/index.html">Open3D RGBD integration tutorial</a></li>
-<li><a href="https://www.intelrealsense.com/beginners-guide-to-depth/">Understanding depth cameras (Intel RealSense blog)</a></li>
+<li><a href="https://docs.ros.org/en/humble/">ROS2 Humble documentation</a></li>
+<li><a href="https://dev.bostondynamics.com/">Boston Dynamics Spot SDK</a></li>
+<li>Implementation: <code>spot_semantic_mapping/spot/telemetry.py</code></li>
 </ul>
 
 
@@ -2232,7 +2077,7 @@ Or save the point cloud as a <code>.ply</code> and visualise locally.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../pytorch/" class="md-footer__link md-footer__link--prev" aria-label="Previous: PyTorch &amp; CUDA">
+          <a href="../robot_hardware/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Robot Hardware">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -2242,20 +2087,20 @@ Or save the point cloud as a <code>.ply</code> and visualise locally.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                PyTorch & CUDA
+                Robot Hardware
               </div>
             </div>
           </a>
         
         
           
-          <a href="../../concepts/architecture/" class="md-footer__link md-footer__link--next" aria-label="Next: Architecture">
+          <a href="../open_problems/" class="md-footer__link md-footer__link--next" aria-label="Next: Open Problems in Robotics">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Architecture
+                Open Problems in Robotics
               </div>
             </div>
             <div class="md-footer__button md-icon">

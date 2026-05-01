@@ -652,7 +652,18 @@
   <a href="#iou-intersection-over-union" class="md-nav__link">
     <span class="md-ellipsis">
       
-        IoU — Intersection over Union
+        IoU, Intersection over Union
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-set-detection-yolo-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open-Set Detection: YOLO World
       
     </span>
   </a>
@@ -680,7 +691,7 @@
   <a href="#sam-segment-anything-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SAM — Segment Anything Model
+        SAM, Segment Anything Model
       
     </span>
   </a>
@@ -705,10 +716,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dinov2" class="md-nav__link">
+  <a href="#dinov2-self-supervised-vision-transformer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        DINOv2
+        DINOv2, Self-Supervised Vision Transformer
       
     </span>
   </a>
@@ -716,10 +727,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#siglip" class="md-nav__link">
+  <a href="#siglip-shared-image-text-space" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SigLIP
+        SigLIP, Shared Image-Text Space
       
     </span>
   </a>
@@ -727,10 +738,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#blip-2" class="md-nav__link">
+  <a href="#blip-2-bootstrapped-language-image-pre-training" class="md-nav__link">
     <span class="md-ellipsis">
       
-        BLIP-2
+        BLIP-2, Bootstrapped Language-Image Pre-training
       
     </span>
   </a>
@@ -747,6 +758,17 @@
     <span class="md-ellipsis">
       
         How They Chain Together in the Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
       
     </span>
   </a>
@@ -805,6 +827,34 @@
     
   
     Robot Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2 & Spot Telemetry
   
 
     
@@ -1892,7 +1942,18 @@
   <a href="#iou-intersection-over-union" class="md-nav__link">
     <span class="md-ellipsis">
       
-        IoU — Intersection over Union
+        IoU, Intersection over Union
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-set-detection-yolo-world" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open-Set Detection: YOLO World
       
     </span>
   </a>
@@ -1920,7 +1981,7 @@
   <a href="#sam-segment-anything-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SAM — Segment Anything Model
+        SAM, Segment Anything Model
       
     </span>
   </a>
@@ -1945,10 +2006,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#dinov2" class="md-nav__link">
+  <a href="#dinov2-self-supervised-vision-transformer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        DINOv2
+        DINOv2, Self-Supervised Vision Transformer
       
     </span>
   </a>
@@ -1956,10 +2017,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#siglip" class="md-nav__link">
+  <a href="#siglip-shared-image-text-space" class="md-nav__link">
     <span class="md-ellipsis">
       
-        SigLIP
+        SigLIP, Shared Image-Text Space
       
     </span>
   </a>
@@ -1967,10 +2028,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#blip-2" class="md-nav__link">
+  <a href="#blip-2-bootstrapped-language-image-pre-training" class="md-nav__link">
     <span class="md-ellipsis">
       
-        BLIP-2
+        BLIP-2, Bootstrapped Language-Image Pre-training
       
     </span>
   </a>
@@ -1987,6 +2048,17 @@
     <span class="md-ellipsis">
       
         How They Chain Together in the Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
       
     </span>
   </a>
@@ -2014,146 +2086,136 @@
 
 
 <h1 id="intro-to-computer-vision">Intro to Computer Vision<a class="headerlink" href="#intro-to-computer-vision" title="Permanent link">&para;</a></h1>
-<p>Computer vision is what lets the robot understand what it sees. This repo uses three types of vision models: <strong>detection</strong>, <strong>segmentation</strong>, and <strong>vision-language models</strong>. Each one produces a different kind of output from an image.</p>
+<p>If machine learning is the brain, computer vision is the eyes. And just like real eyes, it turns out "seeing" is an extraordinarily complicated thing to do. Humans are so good at it that they take it for granted, you glance at a room and instantly know there is a chair, a laptop, a coffee mug, and that the mug is on the desk. Your brain does this in about 150 milliseconds. Getting a computer to do it took decades of research, hundreds of PhDs, and the realization that you basically needed to let the machine figure out the rules instead of writing them by hand.</p>
+<p>This repo uses three types of vision models: <strong>detection</strong> (where are the objects?), <strong>segmentation</strong> (which exact pixels are they?), and <strong>vision-language models</strong> (what <em>are</em> they and how do they relate to text?). Each section below builds on the last.</p>
 <hr />
 <h2 id="object-detection">Object Detection<a class="headerlink" href="#object-detection" title="Permanent link">&para;</a></h2>
 <p><strong>Detection</strong> answers: <em>what objects are in this image, and roughly where?</em></p>
-<p>The output is a list of <strong>bounding boxes</strong> — one rectangle per detected object:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Input: RGB image (H × W × 3)
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Output:
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  ┌─────────────────────────────┐
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  │                             │
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  │   ┌──────┐  chair  0.92     │
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  │   │      │                  │
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  │   └──────┘                  │
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  │        ┌──────────┐         │
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  │        │   desk   │  0.88   │
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  │        └──────────┘         │
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  └─────────────────────────────┘
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>Each detection = [x1, y1, x2, y2, class_name, confidence]
-</span></code></pre></div>
+<p>The output is a list of <strong>bounding boxes</strong>, one rectangle per detected object, each tagged with a class label and a confidence score.</p>
+<p><img alt="bboxes" src="..\assets\yolo_detect.png" /></p>
+<p>A confidence score of <code>0.92</code> does not mean the model is "92% sure" in the philosophical sense. It means the model's sigmoid or softmax output at that head was 0.92, high enough to be kept, low enough to remind you not to fully trust it. This is an important distinction. If you intepret it as the former, the explainable AI folks will scream at you.</p>
 <h3 id="yolo">YOLO<a class="headerlink" href="#yolo" title="Permanent link">&para;</a></h3>
-<p>This repo uses <strong>YOLO (You Only Look Once)</strong>, which divides the image into a grid and predicts boxes in a single forward pass — no sliding window, no multiple passes. This makes it fast enough for real-time use.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>YOLO grid (simplified):
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  ┌───┬───┬───┬───┐
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  │   │   │ ● │   │  ← each cell predicts:
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  ├───┼───┼───┼───┤     - does an object center fall here?
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  │   │ ● │   │   │     - if yes: box offset + class + confidence
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  ├───┼───┼───┼───┤
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>  │   │   │   │   │
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  └───┴───┴───┴───┘
-</span></code></pre></div>
-<h3 id="iou-intersection-over-union">IoU — Intersection over Union<a class="headerlink" href="#iou-intersection-over-union" title="Permanent link">&para;</a></h3>
-<p>Used to measure how well two boxes overlap, and to remove duplicate detections:</p>
+<p>This repo uses <strong>YOLO (You Only Look Once)</strong>, a family of detectors known for being fast enough to run in real time. The name comes from the original 2016 paper's key insight: instead of running a classifier hundreds of times on sliding windows across the image (which earlier detectors like R-CNN did), YOLO processes the entire image <strong>once</strong> in a single forward pass. Modern YOLO versions (v8, v11) are <strong>anchor-free</strong>: instead of predicting box offsets from pre-defined anchor shapes, they directly predict the distance from each grid point to the four box edges. Less hyperparameter tuning, fewer edge cases.</p>
+<div class="admonition tip">
+<p class="admonition-title">Reading materials</p>
+<p>I highly recommend you to read the YOLOv3 paper! I will not ruin the suprise for you, but it is a very interesting read.
+ <a href="https://arxiv.org/pdf/1804.02767">YOLOv3: An Incremental Improvement</a>
+ Also, you should check the first author's website!</p>
+</div>
+<h3 id="iou-intersection-over-union">IoU, Intersection over Union<a class="headerlink" href="#iou-intersection-over-union" title="Permanent link">&para;</a></h3>
+<p>IoU measures how well two boxes overlap. It is used everywhere: NMS, evaluation metrics, 3D object association in the tracker.</p>
 <div class="arithmatex">\[
 \text{IoU}(A, B) = \frac{\text{Area}(A \cap B)}{\text{Area}(A \cup B)}
 \]</div>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>  ┌──────────┐
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  │  A       │
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>  │   ┌──────┼────┐
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>  │   │ A∩B  │  B │
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>  └───┼──────┘    │
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>      └───────────┘
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>  IoU = 0  → no overlap
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>  IoU = 1  → identical boxes
-</span></code></pre></div>
+<p><img alt="iou" src="../assets/iou.png" /></p>
+<h3 id="open-set-detection-yolo-world">Open-Set Detection: YOLO World<a class="headerlink" href="#open-set-detection-yolo-world" title="Permanent link">&para;</a></h3>
+<p>Standard YOLO is trained on a fixed set of class names (COCO has 80). <strong>YOLO World</strong> extends this to open-vocabulary detection, you pass in a list of text prompts at runtime and it detects them, even if it never saw those exact words during training. This is how the <code>classes</code> list in <code>main_config.yml</code> works: you can write <code>"fire extinguisher"</code> and YOLO World will find them without any retraining.</p>
+<p>The trick: YOLO World embeds your text prompts into the same feature space as image regions using a text encoder. Detection becomes "find image regions whose features are close to this text embedding."</p>
 <hr />
 <h2 id="image-segmentation">Image Segmentation<a class="headerlink" href="#image-segmentation" title="Permanent link">&para;</a></h2>
-<p><strong>Segmentation</strong> goes further than detection: instead of a box, it tells you exactly <em>which pixels</em> belong to the object — a <strong>binary mask</strong>.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Bounding box (detection):     Binary mask (segmentation):
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  ┌────────────┐               F F F F F F F
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>  │            │               F T T T T F F
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>  │   chair    │     vs        F T T T T T F
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  │            │               F F T T T F F
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  └────────────┘               F F F F F F F
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  Includes background pixels   Pixel-perfect boundary
+<p><strong>Segmentation</strong> goes further than detection: instead of a box, it tells you exactly <em>which pixels</em> belong to the object, a <strong>binary mask</strong>.</p>
+<p><img alt="alt text" src="../assets/segmentation.png" /></p>
+<p>Why does this matter? Because when you back-project a depth image to 3D, every pixel in the bounding box gets included, table surface, floor, air, whatever was behind the chair. The mask cuts that down to just the chair pixels. The quality of your 3D point cloud depends entirely on the quality of your masks.</p>
+<h3 id="sam-segment-anything-model">SAM, Segment Anything Model<a class="headerlink" href="#sam-segment-anything-model" title="Permanent link">&para;</a></h3>
+<p>This repo uses <a href="https://aidemos.meta.com/segment-anything/"><strong>SAM (Segment Anything)</strong></a>, a foundation model from Meta that accepts a <strong>prompt</strong>, a bounding box, a point, or a text query, and returns a tight binary mask. It was trained on 11 billion mask annotations, which is why it generalizes to nearly any object category.</p>
+<p>The key design: the <strong>image encoder runs once per frame</strong> (it is the expensive part, a Vision Transformer over the full image). The <strong>decoder runs once per detected object</strong> (cheap, it is just a few cross-attention layers). This split makes it practical to run SAM on every YOLO detection without re-encoding the image each time.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Simplified pipeline in models/detection.py:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">image_embedding</span> <span class="o">=</span> <span class="n">sam</span><span class="o">.</span><span class="n">encode_image</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>          <span class="c1"># expensive, runs once</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">for</span> <span class="n">bbox</span> <span class="ow">in</span> <span class="n">yolo_detections</span><span class="p">:</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">mask</span> <span class="o">=</span> <span class="n">sam</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">image_embedding</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="n">bbox</span><span class="p">)</span>  <span class="c1"># cheap, runs per-object</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">masks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
 </span></code></pre></div>
-<h3 id="sam-segment-anything-model">SAM — Segment Anything Model<a class="headerlink" href="#sam-segment-anything-model" title="Permanent link">&para;</a></h3>
-<p>This repo uses <strong>SAM (Segment Anything)</strong>, a foundation model from Meta that accepts a bounding box as a prompt and returns a tight binary mask:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>SAM workflow:
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  Image ──► ViT encoder ──► image embedding
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                                  │
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>  Bbox  ──► decoder  ◄────────────┘
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>                │
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>                ▼
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>           binary mask (H × W)
-</span></code></pre></div>
-<p>The encoder runs once per frame. The decoder runs once per detected object. Clean masks mean clean point clouds — stray background pixels in the mask create noise in 3D.</p>
+<p><strong>SAM 2</strong> (used in this repo when <code>sam_backend: sam2</code>) extends this to video: the image embedding is propagated across frames, so objects segmented in frame N inform segmentation in frame N+1. This dramatically helps with objects that are partially occluded mid-sequence.</p>
 <hr />
 <h2 id="vision-language-models-vlms">Vision-Language Models (VLMs)<a class="headerlink" href="#vision-language-models-vlms" title="Permanent link">&para;</a></h2>
-<p>A <strong>VLM</strong> understands both images and text together. The models in this repo:</p>
-<h3 id="dinov2">DINOv2<a class="headerlink" href="#dinov2" title="Permanent link">&para;</a></h3>
-<p>A Vision Transformer trained <strong>without labels</strong> (self-supervised) on 142M images. It produces powerful image embeddings used for place recognition and object tracking.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>DINOv2 output:
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>  Image (224×224)
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>       │
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>       ▼
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>  Split into patches (16×16 each) → 196 tokens
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>       │
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>       ▼
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>  Transformer (12–24 layers of self-attention)
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>       │
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>       ├── CLS token  →  (768,) summary of the whole image
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>       └── Patch tokens → (196, 768) spatially-aware features
+<p>A VLM understands both images and text, not separately, but jointly. These models are where computer vision starts to feel less like pattern matching and more like actual understanding.</p>
+<h3 id="dinov2-self-supervised-vision-transformer">DINOv2, Self-Supervised Vision Transformer<a class="headerlink" href="#dinov2-self-supervised-vision-transformer" title="Permanent link">&para;</a></h3>
+<p>DINOv2 is a Vision Transformer (ViT) trained with <strong>self-supervised learning</strong>: no human labels. Instead, it was given two different crops of the same image and trained to produce similar embeddings for both, while producing different embeddings for crops from different images.</p>
+<p>The result is a model that learned visual similarity purely from structure. It never saw a label like "chair", but it learned that all chairs look more like each other than they look like tables.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>DINOv2 input processing:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  Image (H × W × 3)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>       │
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>       ▼
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Split into 16×16 patches → 196 tokens (for 224×224 input)
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>       │
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>       ▼
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  Add a special [CLS] token at position 0
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>       │
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>       ▼
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  24 layers of self-attention (ViT-L)
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>       │
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>       ├── CLS token  →  (1024,)  summary of the whole image ← used for VPR
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>       └── Patch tokens → (196, 1024)  per-patch features ← used for VLAD
 </span></code></pre></div>
-<h3 id="siglip">SigLIP<a class="headerlink" href="#siglip" title="Permanent link">&para;</a></h3>
-<p>Embeds images <strong>and text</strong> into the same vector space. A photo of a chair and the phrase "a chair" end up close together. Used in this repo to compare objects across frames.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>SigLIP embedding space:
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  image of chair ──► [0.3, −0.1, …]
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>                              ↕ close
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  &quot;a chair&quot;      ──► [0.3, −0.1, …]
+<p>The patch tokens have spatial meaning: patch token at position (i, j) corresponds to the 16×16 image region at that spatial location. This is what makes VLAD aggregation meaningful, you're encoding "how each region of this image compares to the average appearance of similar scenes."</p>
+<h3 id="siglip-shared-image-text-space">SigLIP, Shared Image-Text Space<a class="headerlink" href="#siglip-shared-image-text-space" title="Permanent link">&para;</a></h3>
+<p>SigLIP (Sigmoid Language-Image Pre-Training) learns to embed images and text <strong>into the same vector space</strong>. A photo of a chair and the string <code>"a chair"</code> end up nearby in embedding space. A photo of a chair and <code>"a car"</code> end up far apart.</p>
+<div class="arithmatex">\[
+\text{similarity}(\text{image}, \text{text}) = \frac{\text{embed_image}(\cdot) \cdot \text{embed_text}(\cdot)}{\|\text{embed_image}(\cdot)\|\,\|\text{embed_text}(\cdot)\|}
+\]</div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>SigLIP embedding space (3D projection of 512D reality):
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>   Images:  chair photos      ·  ·  ·
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>   Text:    &quot;a chair&quot;         ·
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>                              ↑ all close together
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>   Images:  car photos                   ·  ·
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>   Text:    &quot;a car&quot;                      ·
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                                         ↑ clustered elsewhere
 </span></code></pre></div>
-<h3 id="blip-2">BLIP-2<a class="headerlink" href="#blip-2" title="Permanent link">&para;</a></h3>
-<p>Takes an image and generates a <strong>natural language caption</strong>:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Crops of the chair from 3 different angles
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>       │
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>       ▼
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  BLIP-2 (ViT + Q-Former + Flan-T5)
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>       │
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>       ▼
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  &quot;a black office chair with mesh back&quot;
+<p>This is used in the tracker: when a new detection appears, its SigLIP embedding is compared to all currently-tracked objects. The closest match (by cosine similarity) is the candidate for association. If the score exceeds <code>match_threshold</code>, the detection is assigned to that track.</p>
+<h3 id="blip-2-bootstrapped-language-image-pre-training">BLIP-2, Bootstrapped Language-Image Pre-training<a class="headerlink" href="#blip-2-bootstrapped-language-image-pre-training" title="Permanent link">&para;</a></h3>
+<p>BLIP-2 generates <strong>natural language captions</strong> from images. It connects a frozen image encoder (ViT) to a frozen language model (Flan-T5 or OPT) via a lightweight bridge module called a <strong>Q-Former</strong>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>BLIP-2 architecture:
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  Image crops (multiple views of the same object)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>       │
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>       ▼
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  Frozen ViT image encoder
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>       │  image features (256 × D)
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>       ▼
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>  Q-Former (32 learned query tokens cross-attend to image)
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>       │  32-D bottleneck
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>       ▼
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>  Linear projection
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>       │
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>       ▼
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>  Frozen LLM (Flan-T5-XL)
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>       │
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>       ▼
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>  &quot;a black office chair with mesh back and five-wheel base&quot;
 </span></code></pre></div>
-<p>Each tracked object gets captioned from multiple views. The most frequent caption becomes the object's label in the scene graph.</p>
+<p>The Q-Former is the clever part: the 32 learned query tokens act like questions the language model asks the image. They pull out the information the LLM needs to generate a caption, without the LLM ever needing to process raw image pixels. The whole thing is trained end-to-end on image-caption pairs.</p>
+<p>In this repo, BLIP-2 runs after the mapping is complete. Every tracked object's point cloud is projected back onto the frames where it was visible. The top-quality crops (highest confidence, best viewing angle) are sent to BLIP-2 to generate a caption.</p>
 <hr />
 <h2 id="how-they-chain-together-in-the-pipeline">How They Chain Together in the Pipeline<a class="headerlink" href="#how-they-chain-together-in-the-pipeline" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>RGB frame
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    │
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    ▼
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>YOLO ──► [bbox₁, bbox₂, bbox₃, ...]     (detection)
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    │
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    ▼
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>SAM  ──► [mask₁, mask₂, mask₃, ...]     (segmentation)
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>    │
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>    ▼
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>Apply mask to depth image
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    │
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>    ▼
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>Back-project → 3D point cloud per object
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>    │
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>    ▼
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>SigLIP embedding per object crop         (for tracking)
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>    │
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>    ▼
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>ObjectTracker3D  ──► scene graph nodes
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>    │
-</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>    ▼
-</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>BLIP-2  ──► caption each node           (after mapping)
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    A[RGB frame] --&gt; B[YOLO World]
+    B --&gt; |bbox₁, bbox₂, …| C[SAM encoder\nonce per frame]
+    C --&gt; D[SAM decoder\nonce per bbox]
+    D --&gt; |binary masks| E[Apply mask to depth image]
+    E --&gt; F[Back-project → 3D point cloud\nper object]
+    F --&gt; G[SigLIP embedding\nper object crop]
+    G --&gt; H[ObjectTracker3D\nassociate or create track]
+    H --&gt; I[scene graph nodes]
+    I --&gt; J[BLIP-2\ncaption each node]
+    J --&gt; K[scene_graph.json]</code></pre>
+<p>The pipeline is sequential by necessity, you cannot caption an object before you have tracked it across frames, and you cannot track it before you have segmented it. Each stage feeds the next. The bottleneck in practice is SAM2 encoding and BLIP-2 captioning.</p>
+<hr />
+<h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h2>
+<p><strong>Mask quality degrades near edges.</strong> SAM is excellent but not perfect. Objects near the image border or with low-contrast edges sometimes get masks that leak into the background. This creates point cloud noise. The <code>min_views</code> config key (default: 3) helps, objects only make it into the scene graph if they were cleanly detected multiple times.</p>
+<p><strong>Confidence threshold tuning.</strong> A low <code>detection_conf</code> catches more objects but also catches more false positives, which become ghost nodes in the scene graph. A high threshold misses objects. 0.25 is a reasonable starting point; tune it per-scene.</p>
+<p><strong>Open-set classes that are too vague.</strong> <code>"object"</code> is a valid YOLO World prompt, but it will fire on everything. <code>"red coffee mug"</code> fires only on red coffee mugs. The specificity of your class list directly controls scene graph quality.</p>
 <div class="admonition tip">
-<p class="admonition-title">Config knobs</p>
+<p class="admonition-title">Where this shows up in the repo</p>
 <ul>
-<li><code>segmentation.detector</code>: <code>"yolov8"</code> or <code>"yolov11"</code></li>
-<li><code>segmentation.sam_backend</code>: <code>"sam2"</code>, <code>"mobilesam"</code>, <code>"fastsam"</code></li>
-<li><code>landmarks.classes</code>: the list of object categories to detect</li>
+<li><code>models/detection.py</code>, YOLO + SAM inference, NMS, mask post-processing</li>
+<li><code>models/embedding.py</code>, SigLIP image and text encoders</li>
+<li><code>models/captioning.py</code>, BLIP-2 multi-view captioning</li>
+<li><code>mapping/tracker.py</code>, uses IoU (3D) and SigLIP cosine similarity for association</li>
+<li><code>spot_semantic_mapping/configs/main_config.yml</code>, <code>classes</code>, <code>detection_conf</code>, <code>nms_iou</code>, <code>sam_backend</code></li>
 </ul>
 </div>
 

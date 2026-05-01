@@ -666,10 +666,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#tokens" class="md-nav__link">
+  <a href="#tokens-and-tokenization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tokens
+        Tokens and Tokenization
       
     </span>
   </a>
@@ -689,6 +689,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformers-and-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformers and Self-Attention
+      
+    </span>
+  </a>
   
 </li>
       
@@ -737,10 +748,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-nlp-components-in-the-repo" class="md-nav__link">
+  <a href="#summary-nlp-language-components-in-the-repo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary: NLP Components in the Repo
+        Summary: NLP / Language Components in the Repo
       
     </span>
   </a>
@@ -771,6 +782,34 @@
     
   
     Robot Hardware
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ros2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2 & Spot Telemetry
   
 
     
@@ -1844,10 +1883,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#tokens" class="md-nav__link">
+  <a href="#tokens-and-tokenization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Tokens
+        Tokens and Tokenization
       
     </span>
   </a>
@@ -1867,6 +1906,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transformers-and-self-attention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transformers and Self-Attention
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1915,10 +1965,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary-nlp-components-in-the-repo" class="md-nav__link">
+  <a href="#summary-nlp-language-components-in-the-repo" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary: NLP Components in the Repo
+        Summary: NLP / Language Components in the Repo
       
     </span>
   </a>
@@ -1946,25 +1996,32 @@
 
 
 <h1 id="intro-to-nlp">Intro to NLP<a class="headerlink" href="#intro-to-nlp" title="Permanent link">&para;</a></h1>
-<p>Natural Language Processing (NLP) is how computers understand and generate text. In this repo, language models are used to caption objects and extract spatial relationships ("the cup is on top of the desk"). This page covers what you need to know.</p>
+<p>Language is the original compression algorithm. In a few words you can communicate something that would take thousands of pixels to show visually — "the red chair is to the left of the wooden desk" tells a robot almost everything it needs to navigate, in 14 tokens. Natural Language Processing is the field that gave computers the ability to work with that compression. For this repo, NLP shows up in two places: <strong>generating captions</strong> for detected objects, and <strong>extracting spatial relations</strong> between them. Both tasks would have been nearly impossible five years ago and are now handled by models that cost $0.001 per query.</p>
 <hr />
 <h2 id="large-language-models-llms">Large Language Models (LLMs)<a class="headerlink" href="#large-language-models-llms" title="Permanent link">&para;</a></h2>
-<p>An <strong>LLM</strong> is a neural network trained on massive text datasets to predict the next word (or token) in a sequence. Through this simple objective, it learns grammar, reasoning, facts, and how to follow instructions.</p>
+<p>An <strong>LLM</strong> is a neural network trained on internet-scale text with one objective: predict the next token. That sounds underwhelming. It is not. By training to predict the next token on trillions of words of human writing, the model implicitly learns grammar, facts, reasoning, coding, and how to follow instructions — because all of that information is encoded in the statistical structure of text.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>LLM: next-token prediction
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  Input:  &quot;The cup is on top of the&quot;
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  Output: &quot;desk&quot;  (most likely next token)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  Output: &quot;desk&quot;  (most likely next token given all context)
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  Chain many predictions together → full sentence generation
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  This is called &quot;autoregressive decoding&quot;
 </span></code></pre></div>
-<h3 id="tokens">Tokens<a class="headerlink" href="#tokens" title="Permanent link">&para;</a></h3>
-<p>LLMs do not process characters or words — they process <strong>tokens</strong> (roughly word pieces):</p>
+<p>The model has no symbolic understanding of "cup" or "desk." It has statistical patterns learned from billions of examples of humans describing physical spaces. But the emergent result is good enough that you can ask it spatial reasoning questions and get reliable answers.</p>
+<h3 id="tokens-and-tokenization">Tokens and Tokenization<a class="headerlink" href="#tokens-and-tokenization" title="Permanent link">&para;</a></h3>
+<p>LLMs do not process characters or words — they process <strong>tokens</strong> (roughly word pieces). A tokenizer splits text into sub-word units and maps each to an integer ID. Why sub-words? Because a vocabulary of whole words has millions of entries (every proper noun, every conjugation, every misspelling), while a vocabulary of ~50,000 sub-word pieces covers almost all text with short sequences.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;the laptop is on the desk&quot;
 </span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  →  [&quot;the&quot;, &quot; laptop&quot;, &quot; is&quot;, &quot; on&quot;, &quot; the&quot;, &quot; desk&quot;]
 </span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  →  [  264,    21132,    374,    389,    264,   15051]  (token IDs)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>&quot;electromagnetic&quot;
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  →  [&quot;electro&quot;, &quot;magnetic&quot;]   ← split at a sub-word boundary
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>  →  [14192, 9492]
 </span></code></pre></div>
+<p>A common trap: when you feed a prompt to an LLM API, you are billed by tokens, not by characters. Long object descriptions with unusual words cost more because they tokenize into more pieces. Keeping relation-extraction prompts short matters for cost.</p>
 <h3 id="how-this-repo-uses-llms">How This Repo Uses LLMs<a class="headerlink" href="#how-this-repo-uses-llms" title="Permanent link">&para;</a></h3>
-<p>After building the 3D map, for each pair of nearby objects, an LLM (Llama-4 via Groq API or GPT-4o via OpenAI) is given image crops and asked:</p>
+<p>After building the 3D map, for each pair of nearby objects the LLM (Llama-4 via Groq API or GPT-4o via OpenAI) is given image crops and 3D positions and asked to identify the spatial relation:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Prompt:
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>  &quot;Object A is a laptop at position [1.2, 1.8, 0.82].
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>   Object B is a desk  at position [1.2, 2.0, 0.75].
@@ -1973,19 +2030,59 @@
 </span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Response: &quot;on_top_of&quot;
 </span></code></pre></div>
-<p>The LLM does not need to be fine-tuned. It reasons from its pre-training knowledge.</p>
+<p>The LLM needs no fine-tuning for this. It reasons from its pre-training knowledge of how physical objects relate to each other. The <code>relation_votes</code> config key (default: 3) runs the same query multiple times and takes the majority vote — LLMs are stochastic, and averaging reduces noise.</p>
+<hr />
+<h2 id="transformers-and-self-attention">Transformers and Self-Attention<a class="headerlink" href="#transformers-and-self-attention" title="Permanent link">&para;</a></h2>
+<p>Every modern language model — and most vision models — is built on the <strong>Transformer</strong> architecture (Vaswani et al., 2017, "Attention Is All You Need"). The core mechanism is <strong>self-attention</strong>, which lets every position in a sequence look at every other position and decide how much to attend to it.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Self-attention (simplified):
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  Input sequence: [&quot;the&quot;, &quot;cup&quot;, &quot;is&quot;, &quot;on&quot;, &quot;the&quot;, &quot;desk&quot;]
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                     │      │     │     │      │      │
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                     ▼      ▼     ▼     ▼      ▼      ▼
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>  Each token produces three vectors:
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    Q (query)  — &quot;what am I looking for?&quot;
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    K (key)    — &quot;what do I contain?&quot;
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    V (value)  — &quot;what do I want to pass on?&quot;
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>  Attention score between token i and token j:
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>    score(i, j) = softmax( Qᵢ · Kⱼ / √d_k )
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>  Output for token i:
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>    output_i = Σⱼ score(i, j) × Vⱼ
+</span></code></pre></div>
+<p>In plain English: each token broadcasts a query ("I am 'on', what prepositions usually attach to?"), every other token responds with its key ("I am 'cup', I often appear after spatial prepositions"), and the output at each position is a weighted average of all values. This lets "cup" and "desk" attend strongly to "on" — and "on" to both — regardless of how far apart they are in the sequence.</p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Self-Attention (1 head)"
+        T["Token embeddings\n(seq_len × d_model)"]
+        Q["Q = X·Wq"]
+        K["K = X·Wk"]
+        V["V = X·Wv"]
+        S["scores = QKᵀ/√d_k\nsoftmax → weights"]
+        O["output = weights·V"]
+        T --&gt; Q &amp; K &amp; V
+        Q &amp; K --&gt; S
+        S &amp; V --&gt; O
+    end</code></pre>
+<p><strong>Multi-head attention</strong> runs this in parallel with different learned weight matrices, then concatenates the results. Each head learns to attend to different types of relationships (syntactic, semantic, positional, etc.). GPT-4 has 96 attention heads per layer.</p>
+<div class="admonition tip">
+<p class="admonition-title">Why not RNNs?</p>
+<p>Earlier sequence models (LSTMs, GRUs) processed tokens left-to-right one at a time. This made it hard to relate tokens that were far apart in the sequence (the gradient has to flow back through every step in between). Self-attention is O(n²) in sequence length but connects any two positions in a single operation. For long documents, this is a massive win. For very long sequences (&gt;32k tokens), modern techniques like sliding window attention and sparse attention manage the quadratic cost.</p>
+</div>
 <hr />
 <h2 id="encoders">Encoders<a class="headerlink" href="#encoders" title="Permanent link">&para;</a></h2>
-<p>A <strong>text encoder</strong> converts a string into a fixed-length embedding vector — the same idea as image embeddings, but for text.</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Text encoder:
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>  &quot;a black office chair&quot;  ──► encoder ──► [0.21, −0.44, 0.07, …]
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>                                                  ↑
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>                                          512-D vector
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>  &quot;a wooden desk&quot;         ──► encoder ──► [0.05,  0.31, −0.12, …]
+<p>A <strong>text encoder</strong> converts a string into a fixed-length embedding vector — identical concept to image embeddings from the ML page, but for text.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Text encoder:
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>  &quot;a black office chair&quot;  ──► encoder ──► [0.21, −0.44, 0.07, …]
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>                                                  ↑
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>                                          512-D vector
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>  &quot;a wooden desk&quot;         ──► encoder ──► [0.05,  0.31, −0.12, …]
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>  cosine_similarity(&quot;a black office chair&quot;, &quot;a wooden desk&quot;) ≈ 0.35
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>  cosine_similarity(&quot;a black office chair&quot;, &quot;a dark swivel chair&quot;) ≈ 0.87
 </span></code></pre></div>
-<p>SigLIP has both an image encoder and a text encoder that map into the <strong>same</strong> vector space — so you can compare an image directly to a text description using cosine similarity.</p>
+<p>SigLIP has both an image encoder and a text encoder that map into the <strong>same</strong> vector space. This means you can directly compare an image to a text description — they land in the same embedding dimension and cosine similarity is meaningful across modalities.</p>
 <hr />
 <h2 id="cosine-similarity">Cosine Similarity<a class="headerlink" href="#cosine-similarity" title="Permanent link">&para;</a></h2>
 <p>The standard way to compare two embedding vectors is <strong>cosine similarity</strong>:</p>
@@ -1993,69 +2090,76 @@
 \text{sim}(\mathbf{a}, \mathbf{b}) = \frac{\mathbf{a} \cdot \mathbf{b}}{\|\mathbf{a}\|\,\|\mathbf{b}\|}
 \]</div>
 <p>It measures the <strong>angle</strong> between two vectors, regardless of their magnitude:</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sim = +1.0  →  same direction  (identical meaning)
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sim =  0.0  →  perpendicular   (unrelated)
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>sim = −1.0  →  opposite        (opposite meaning)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sim = +1.0  →  same direction  (identical or near-identical meaning)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sim =  0.0  →  perpendicular   (unrelated concepts)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sim = −1.0  →  opposite        (antonyms or contradictory meaning)
 </span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">cosine_sim</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1"># Between all pairs of N embeddings at once (vectorized)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># a: (N, D)  — N query vectors</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># b: (M, D)  — M database vectors</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">a_n</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="n">b_n</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">sim_matrix</span> <span class="o">=</span> <span class="n">a_n</span> <span class="o">@</span> <span class="n">b_n</span><span class="o">.</span><span class="n">T</span>    <span class="c1"># (N, M)</span>
+<p>Why angle and not Euclidean distance? Because embedding magnitudes are not meaningful — a long embedding vector of "chair" is not "more chair" than a short one. The direction is everything.</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">cosine_sim</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">))</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="c1"># Between all pairs of N embeddings at once (vectorized)</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># a: (N, D)  — N query vectors</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="c1"># b: (M, D)  — M database vectors</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">a_n</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># L2-normalize each row</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="n">b_n</span> <span class="o">=</span> <span class="n">b</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="n">sim_matrix</span> <span class="o">=</span> <span class="n">a_n</span> <span class="o">@</span> <span class="n">b_n</span><span class="o">.</span><span class="n">T</span>    <span class="c1"># (N, M) — all pairwise cosine similarities in one matmul</span>
 </span></code></pre></div>
-<p>This is how <strong>object tracking</strong> works: a new detection's SigLIP embedding is compared to all tracked objects. The one with the highest cosine similarity is the match.</p>
+<p>This is how <strong>object tracking</strong> works: a new detection's SigLIP embedding is compared to all tracked objects. The one with the highest cosine similarity is the match candidate.</p>
 <hr />
 <h2 id="vector-search-nearest-neighbor">Vector Search (Nearest Neighbor)<a class="headerlink" href="#vector-search-nearest-neighbor" title="Permanent link">&para;</a></h2>
-<p>Once every item in a database has an embedding, finding the most similar item to a query is just: <em>which vector in the database is closest to my query vector?</em></p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Database embeddings (one per reference image):
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>  Frame 0   ────────────────────────────────► ·
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>  Frame 1   ──────────────────────►·
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>  Frame 2   ────────────────────────────────────►·
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>  ...
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>  Query     ──────────────────────────────────► ·
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>               ↑
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>        cosine similarity computed to every frame
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>  Best match = Frame 0  (smallest angle)
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>  → Robot is near Frame 0&#39;s recorded position
+<p>Once every item in a database has an embedding, finding the most similar item to a query is just: <em>which vector in the database is closest to my query vector?</em> This is called <strong>nearest-neighbor search</strong> (or approximate nearest-neighbor, ANN, when the database is large enough that exact search is too slow).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Database embeddings (one per reference frame):
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  Frame 0   ─────────────────────────────────► ·
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>  Frame 1   ──────────────────────► ·
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>  Frame 2   ──────────────────────────────────────► ·
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>  ...
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>  Query     ──────────────────────────────────► ·
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>                                              ↑ closest to Frame 0
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>  Best match = Frame 0  →  robot is near Frame 0&#39;s recorded position
 </span></code></pre></div>
-<p>This is the core of <strong>Visual Place Recognition</strong> in the localization module.</p>
+<p>In this repo, <strong>FAISS</strong> (Facebook AI Similarity Search) handles the ANN search. FAISS indexes all database embeddings once and returns top-k nearest neighbors in microseconds, even for databases with millions of vectors. Without ANN indexing, you would be computing millions of cosine similarities sequentially on every query frame — which does not scale to real-time localization.</p>
 <hr />
 <h2 id="vlad-aggregating-many-vectors-into-one">VLAD: Aggregating Many Vectors Into One<a class="headerlink" href="#vlad-aggregating-many-vectors-into-one" title="Permanent link">&para;</a></h2>
-<p>DINOv2 produces 196 patch embeddings per image (one per 16×16 patch). To get a <strong>single descriptor</strong> for retrieval, VLAD aggregates them:</p>
-<ol>
-<li><strong>K-Means</strong> first — cluster all patch embeddings from the database into <span class="arithmatex">\(K\)</span> cluster centers <span class="arithmatex">\(\mathbf{c}_1, \ldots, \mathbf{c}_K\)</span></li>
-<li>For each new image, assign each patch to its nearest cluster and sum the residuals:</li>
-</ol>
+<p>DINOv2 produces <strong>196 patch embeddings</strong> per image (one per 16×16 patch). To get a <strong>single descriptor</strong> for place retrieval, we need to aggregate them. VLAD (Vector of Locally Aggregated Descriptors) does this by comparing each patch to a set of learned cluster centers.</p>
 <div class="arithmatex">\[
-\mathbf{V}_k = \sum_{i \;:\; \text{NN}(\mathbf{f}_i) = k} (\mathbf{f}_i - \mathbf{c}_k)
+\mathbf{V}_k = \sum_{\substack{i\;\colon\\\text{NN}(\mathbf{f}_i) = k}} (\mathbf{f}_i - \mathbf{c}_k)
 \]</div>
 <ol>
-<li>Concatenate all <span class="arithmatex">\(K\)</span> blocks and L2-normalize the result.</li>
+<li><strong>Offline (one-time setup)</strong> — K-Means cluster all patch embeddings from the training database into <span class="arithmatex">\(K\)</span> cluster centers <span class="arithmatex">\(\mathbf{c}_1, \ldots, \mathbf{c}_K\)</span> (default <span class="arithmatex">\(K=32\)</span> in config)</li>
+<li><strong>Per image</strong> — assign each of the 196 patches to its nearest cluster, accumulate residuals (patch − center) per cluster</li>
+<li>Concatenate all <span class="arithmatex">\(K\)</span> blocks and L2-normalize</li>
 </ol>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>VLAD construction:
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>  196 patch embeddings  →  assign each to nearest cluster
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>                        →  sum residuals per cluster
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>                        →  [V₀ | V₁ | … | V_{K-1}]  L2-normalized
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>                              ↑ one compact descriptor per image
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>VLAD construction:
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>  196 patch embeddings
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>       │
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>       ▼
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>  Assign each patch to nearest cluster (out of K=32)
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>       │
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>       ▼
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>  For cluster k: sum up (patch − center_k) for all patches assigned to k
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>       │
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>       ▼
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>  Concatenate → [V₀ | V₁ | … | V₃₁]  (32 × D values)
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>       │
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>       ▼
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>  L2-normalize → compact descriptor for the whole image
 </span></code></pre></div>
-<p>A single VLAD descriptor captures <em>how</em> this image's patches deviate from the average appearance of each visual pattern — far richer than a single CLS token.</p>
+<p>Why is this better than just using the CLS token? The CLS token gives a single holistic summary that loses spatial detail. VLAD preserves information about <em>which parts</em> of the image look which way — two rooms that happen to have the same average appearance but different spatial layout will get different VLAD descriptors.</p>
 <hr />
-<h2 id="summary-nlp-components-in-the-repo">Summary: NLP Components in the Repo<a class="headerlink" href="#summary-nlp-components-in-the-repo" title="Permanent link">&para;</a></h2>
+<h2 id="summary-nlp-language-components-in-the-repo">Summary: NLP / Language Components in the Repo<a class="headerlink" href="#summary-nlp-language-components-in-the-repo" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>Component</th>
 <th>Model</th>
+<th>Task</th>
 <th>Where</th>
 </tr>
 </thead>
@@ -2063,30 +2167,45 @@
 <tr>
 <td>Relation extraction</td>
 <td>Llama-4 (Groq) or GPT-4o</td>
+<td>Object-pair spatial relations</td>
 <td><code>models/llm.py</code></td>
 </tr>
 <tr>
 <td>Image + text embedding</td>
 <td>SigLIP</td>
+<td>Cross-modal similarity</td>
 <td><code>models/embedding.py</code></td>
 </tr>
 <tr>
 <td>Object captioning</td>
 <td>BLIP-2</td>
+<td>Natural language labels</td>
 <td><code>models/captioning.py</code></td>
 </tr>
 <tr>
 <td>VLAD aggregation</td>
 <td>(math, no model)</td>
-<td><code>core/jax_helper.py</code></td>
+<td>Single image descriptor</td>
+<td><code>localization/</code></td>
 </tr>
 <tr>
-<td>Cosine similarity</td>
-<td>(math, no model)</td>
-<td><code>core/jax_helper.py</code></td>
+<td>ANN search</td>
+<td>FAISS</td>
+<td>Nearest-neighbor retrieval</td>
+<td><code>localization/dataset.py</code></td>
 </tr>
 </tbody>
 </table>
+<div class="admonition tip">
+<p class="admonition-title">Where this shows up in the repo</p>
+<ul>
+<li><code>models/llm.py</code> — wraps Groq and OpenAI APIs, implements majority-vote relation extraction</li>
+<li><code>models/captioning.py</code> — BLIP-2 multi-view captioning with top-crop selection</li>
+<li><code>models/embedding.py</code> — SigLIP image and text encoders, cosine similarity</li>
+<li><code>localization/dataset.py</code> — FAISS index construction and VPR database</li>
+<li><code>configs/main_config.yml</code> — <code>relation_llm</code>, <code>relation_votes</code>, <code>vpr_aggregation</code>, <code>vlad_clusters</code></li>
+</ul>
+</div>
 
 
 
