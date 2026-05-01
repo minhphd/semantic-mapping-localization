@@ -2,7 +2,7 @@
 
 A 3D semantic scene graph construction system for Boston Dynamics Spot robots and iPhone RGBD sequences. Transforms raw sensor data into structured, queryable world representations with object detection, 3D reconstruction, multi-view captioning, and visual place recognition.
 
-**Full documentation:** [mhpham26.github.io/deployment_sem_mapping](https://minhphd.github.io/semantic-mapping-localization/)
+**Full documentation:** [minhphd.github.io/semantic-mapping-localization](https://minhphd.github.io/semantic-mapping-localization/)
 
 ---
 
