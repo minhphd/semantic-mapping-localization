@@ -215,6 +215,7 @@ medias/
 clouds
 __pycache__
 .DS_Store
+*.icloud
 
 # Model weights
 spot_semantic_mapping/models/weights/
